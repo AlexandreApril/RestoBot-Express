@@ -2,6 +2,10 @@
   "scripts": {
     "start": "node server.js"
   },
+  "dependencies": {
+		"express": "^5.0.0-alpha.2",
+		"body-parser": "^1.15.2"
+	},
   "name": "restobot-express",
   "description": "",
   "version": "1.0.0",

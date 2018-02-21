@@ -5,19 +5,18 @@ const app = express();
 const bodyParser = require("body-parser");
 app.use(bodyParser.raw({ type: "*/*" }));
 
-app.post("/message", (req, res) => {
+app.get("/", (req, res) => { res.sendFile(__dirname + '/views/index.html'); });
+app.post("/signup", (req, res) => {
   let json = JSON.parse(req.body);
-  console.log(json); 
-  console.log(json.Body);
-  console.log(json.From);
-  res.send("<Response><Message>" + json.Body + "</Message></Response>");
+  res.send(functions.RegisterRestaurant(json));
+});
+app.post("/login", (req, res) => {
+  let json = JSON.parse(req.body);
+  res.send(functions.RegisterRestaurant(json));
+});
+app.post("/message", (req, res) => {
+  var json = JSON.parse(req.body);
+  res.send(JSON.stringify({ speech: functions.CreateReservationObject(json) }));
 });
 
-
-app.get("/", (req, res) => {
-  res.sendFile(__dirname + '/views/index.html');
-});
-
-var listener = app.listen(process.env.PORT, function () {
-  console.log('Your app is listening on port ' + listener.address().port);
-});
+app.listen(3000);

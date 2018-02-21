@@ -1,0 +1,83 @@
+{
+    "originalRequest": {
+        "source": "twilio",
+        "data": {
+            "MessagingServiceSid": "MG30803df423f6ac98b5d4c1a759b90f3f",
+            "ApiVersion": "2010-04-01",
+            "SmsSid": "SMa41f93e439a402e49fb4dd75147327a2",
+            "SmsStatus": "received",
+            "SmsMessageSid": "SMa41f93e439a402e49fb4dd75147327a2",
+            "NumSegments": "1",
+            "ToState": "QC",
+            "From": "+15149804269",
+            "MessageSid": "SMa41f93e439a402e49fb4dd75147327a2",
+            "AccountSid": "AC0ae1bbf711277ab3e08dd3c498b9c62c",
+            "ToCity": "ST GENEVIA VE",
+            "FromCountry": "CA",
+            "ToZip": "",
+            "FromCity": "MONTREAL",
+            "To": "+15147002311",
+            "FromZip": "",
+            "ToCountry": "CA",
+            "Body": "Reservation for 9 people in Montreal at 8pm",
+            "NumMedia": "0",
+            "FromState": "QC"
+        }
+    },
+    "id": "d0314468-ff3a-494f-acde-3cf9971e45c4",
+    "timestamp": "2018-02-20T21:06:11.302Z",
+    "lang": "en",
+    "result": {
+        "source": "agent",
+        "resolvedQuery": "Reservation for 9 people in Montreal at 8pm",
+        "speech": "",
+        "action": "",
+        "actionIncomplete": false,
+        "parameters": {
+            "number-integer": "9",
+            "time": "20:00:00",
+            "geo-city": "Montréal"
+        },
+        "contexts": [
+            {
+                "name": "generic",
+                "parameters": {
+                    "number-integer": "9",
+                    "time.original": "8pm",
+                    "number-integer.original": "9",
+                    "twilio_sender_id": "+15149804269",
+                    "geo-city": "Montréal",
+                    "geo-city.original": "Montreal",
+                    "time": "20:00:00"
+                },
+                "lifespan": 3
+            }
+        ],
+        "metadata": {
+            "intentId": "f4dad90d-09a6-4120-86ca-9bc09672a0fa",
+            "webhookUsed": "true",
+            "webhookForSlotFillingUsed": "false",
+            "intentName": "-ReservationsByArea"
+        },
+        "fulfillment": {
+            "speech": "Reservation for 9 people in Montréal at 20:00:00 successful!",
+            "messages": [
+                {
+                    "type": 0,
+                    "speech": "Reservation for 9 people in Montréal at 20:00:00 successful!"
+                },
+                {
+                    "type": 4,
+                    "payload": {}
+                }
+            ]
+        },
+        "score": 0.9900000095367432
+    },
+    "status": {
+        "code": 200,
+        "errorType": "success",
+        "webhookTimedOut": false
+    },
+    "sessionId": "10c5fd4b-d669-4b73-89a9-0f911d8f86e4"
+}
