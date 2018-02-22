@@ -1,0 +1,120 @@
+{
+    "originalRequest": {
+        "source": "slack_testbot",
+        "data": {
+            "event_ts": "1519256278.000267",
+            "channel": "D9BF31SH0",
+            "text": "Reservation at McDonalds For 10",
+            "type": "message",
+            "user": "U9BEA6XSQ",
+            "ts": "1519256278.000267"
+        }
+    },
+    "id": "e4b27387-06a7-4150-9bd2-cc3e5d119d79",
+    "timestamp": "2018-02-21T23:37:58.827Z",
+    "lang": "en",
+    "result": {
+        "source": "agent",
+        "resolvedQuery": "Reservation at McDonalds For 10",
+        "speech": "",
+        "action": "",
+        "actionIncomplete": true,
+        "parameters": {
+            "date": "",
+            "number-integer": "10",
+            "time": "",
+            "any": "McDonalds",
+            "geo-city": ""
+        },
+        "contexts": [
+            {
+                "name": "-reservations_dialog_context",
+                "parameters": {
+                    "date": "",
+                    "time.original": "",
+                    "number-integer": "10",
+                    "number-integer.original": "10",
+                    "date.original": "",
+                    "geo-city": "",
+                    "geo-city.original": "",
+                    "any.original": "McDonalds",
+                    "time": "",
+                    "any": "McDonalds"
+                },
+                "lifespan": 2
+            },
+            {
+                "name": "273b778b-d2cc-40b0-b048-a0c68c7d9f76_id_dialog_context",
+                "parameters": {
+                    "date": "",
+                    "time.original": "",
+                    "number-integer": "10",
+                    "number-integer.original": "10",
+                    "date.original": "",
+                    "geo-city": "",
+                    "geo-city.original": "",
+                    "any.original": "McDonalds",
+                    "time": "",
+                    "any": "McDonalds"
+                },
+                "lifespan": 2
+            },
+            {
+                "name": "-reservations_dialog_params_geo-city",
+                "parameters": {
+                    "date": "",
+                    "time.original": "",
+                    "number-integer": "10",
+                    "number-integer.original": "10",
+                    "date.original": "",
+                    "geo-city": "",
+                    "geo-city.original": "",
+                    "any.original": "McDonalds",
+                    "time": "",
+                    "any": "McDonalds"
+                },
+                "lifespan": 1
+            },
+            {
+                "name": "generic",
+                "parameters": {
+                    "date": "",
+                    "time.original": "",
+                    "number-integer": "10",
+                    "slack_user_id": "U9BEA6XSQ",
+                    "number-integer.original": "10",
+                    "slack_channel": "D9BF31SH0",
+                    "date.original": "",
+                    "geo-city": "",
+                    "geo-city.original": "",
+                    "any.original": "McDonalds",
+                    "time": "",
+                    "any": "McDonalds"
+                },
+                "lifespan": 3
+            }
+        ],
+        "metadata": {
+            "intentId": "273b778b-d2cc-40b0-b048-a0c68c7d9f76",
+            "webhookUsed": "true",
+            "webhookForSlotFillingUsed": "true",
+            "intentName": "-Reservations"
+        },
+        "fulfillment": {
+            "speech": "Please specify the name of the city",
+            "messages": [
+                {
+                    "type": 0,
+                    "speech": "Please specify the name of the city"
+                }
+            ]
+        },
+        "score": 0.6000000238418579
+    },
+    "status": {
+        "code": 200,
+        "errorType": "success",
+        "webhookTimedOut": false
+    },
+    "sessionId": "b908a5ea-290a-4d8e-bd55-5fdbce4c59b4"
+}

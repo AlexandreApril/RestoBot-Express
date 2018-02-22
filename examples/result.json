@@ -1,83 +1,69 @@
 {
     "originalRequest": {
-        "source": "twilio",
+        "source": "slack_testbot",
         "data": {
-            "MessagingServiceSid": "MG30803df423f6ac98b5d4c1a759b90f3f",
-            "ApiVersion": "2010-04-01",
-            "SmsSid": "SMa41f93e439a402e49fb4dd75147327a2",
-            "SmsStatus": "received",
-            "SmsMessageSid": "SMa41f93e439a402e49fb4dd75147327a2",
-            "NumSegments": "1",
-            "ToState": "QC",
-            "From": "+15149804269",
-            "MessageSid": "SMa41f93e439a402e49fb4dd75147327a2",
-            "AccountSid": "AC0ae1bbf711277ab3e08dd3c498b9c62c",
-            "ToCity": "ST GENEVIA VE",
-            "FromCountry": "CA",
-            "ToZip": "",
-            "FromCity": "MONTREAL",
-            "To": "+15147002311",
-            "FromZip": "",
-            "ToCountry": "CA",
-            "Body": "Reservation for 9 people in Montreal at 8pm",
-            "NumMedia": "0",
-            "FromState": "QC"
+            "event_ts": "1519317835.000528",
+            "channel": "D9BF31SH0",
+            "text": "Reservation at McDonalds for 4 people in Montreal on 22 December at 5pm",
+            "type": "message",
+            "user": "U9BEA6XSQ",
+            "ts": "1519317835.000528"
         }
     },
-    "id": "d0314468-ff3a-494f-acde-3cf9971e45c4",
-    "timestamp": "2018-02-20T21:06:11.302Z",
+    "id": "78578291-2888-47be-bf29-692b34fa5132",
+    "timestamp": "2018-02-22T16:43:57.242Z",
     "lang": "en",
     "result": {
         "source": "agent",
-        "resolvedQuery": "Reservation for 9 people in Montreal at 8pm",
+        "resolvedQuery": "Reservation at McDonalds for 4 people in Montreal on 22 December at 5pm",
         "speech": "",
         "action": "",
         "actionIncomplete": false,
         "parameters": {
-            "number-integer": "9",
-            "time": "20:00:00",
+            "name": "McDonald's",
+            "date": "2018-12-22",
+            "number-integer": "4",
+            "time": "17:00:00",
             "geo-city": "Montréal"
         },
         "contexts": [
             {
                 "name": "generic",
                 "parameters": {
-                    "number-integer": "9",
-                    "time.original": "8pm",
-                    "number-integer.original": "9",
-                    "twilio_sender_id": "+15149804269",
+                    "name.original": "McDonalds",
+                    "date": "2018-12-22",
+                    "time.original": "5pm",
+                    "number-integer": "4",
+                    "slack_user_id": "U9BEA6XSQ",
+                    "number-integer.original": "4",
+                    "slack_channel": "D9BF31SH0",
+                    "date.original": "22 December",
                     "geo-city": "Montréal",
+                    "venue-eating-out-chain": "McDonald's",
+                    "venue-eating-out-chain.original": "McDonalds",
+                    "name": "McDonald's",
                     "geo-city.original": "Montreal",
-                    "time": "20:00:00"
+                    "time": "17:00:00"
                 },
-                "lifespan": 3
+                "lifespan": 2
             }
         ],
         "metadata": {
-            "intentId": "f4dad90d-09a6-4120-86ca-9bc09672a0fa",
+            "intentId": "4c01180b-828c-4cd9-88fa-6a5d6798068c",
             "webhookUsed": "true",
-            "webhookForSlotFillingUsed": "false",
-            "intentName": "-ReservationsByArea"
+            "webhookForSlotFillingUsed": "true",
+            "intentName": "Reservations"
         },
         "fulfillment": {
-            "speech": "Reservation for 9 people in Montréal at 20:00:00 successful!",
-            "messages": [
-                {
-                    "type": 0,
-                    "speech": "Reservation for 9 people in Montréal at 20:00:00 successful!"
-                },
-                {
-                    "type": 4,
-                    "payload": {}
-                }
-            ]
+            "speech": "",
+            "messages": []
         },
-        "score": 0.9900000095367432
+        "score": 0.9399999976158142
     },
     "status": {
         "code": 200,
         "errorType": "success",
         "webhookTimedOut": false
     },
-    "sessionId": "10c5fd4b-d669-4b73-89a9-0f911d8f86e4"
+    "sessionId": "b908a5ea-290a-4d8e-bd55-5fdbce4c59b4"
 }
