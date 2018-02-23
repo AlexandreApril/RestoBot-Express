@@ -26,8 +26,7 @@ app.get("/userConfirm", (req, res) => { res.send(""); }); // Reservations confir
 
 // Takes the text the user sends to RestoBot and sends RestoBots response
 app.post("/message", (req, res) => {
-  var json = JSON.parse(req.body);
-  console.log("hi", json);
+  let json = JSON.parse(req.body);
   res.send(JSON.stringify(functions.CreateReservationObject(json)));
 });
 
