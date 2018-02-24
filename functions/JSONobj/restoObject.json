@@ -1,0 +1,58 @@
+{
+    "450-111-1234": {
+        "Username": "The Best Resto",
+        "Email": "1234@hotmail.com",
+        "Name": "McDonald's",
+        "City": "Montréal",
+        "Address": "123 rue Bob",
+        "Phone": "450-111-1234",
+        "OpenHours": "8:00",
+        "CloseHours": "22:00",
+        "Nb2Seaters": "20",
+        "Nb4Seaters": "10",
+        "Nb6Seaters": "5",
+        "Nb8Seaters": "1"
+    },
+    "450-222-1234": {
+        "Username": "Da Best Resto",
+        "Email": "1234@hotmail.com",
+        "Name": "McDonald's",
+        "City": "Montréal",
+        "Address": "234 rue Bob",
+        "Phone": "450-222-1234",
+        "OpenHours": "8:00",
+        "CloseHours": "22:00",
+        "Nb2Seaters": "20",
+        "Nb4Seaters": "10",
+        "Nb6Seaters": "5",
+        "Nb8Seaters": "1"
+    },
+    "450-333-1234": {
+        "Username": "Best Resto",
+        "Email": "1234@hotmail.com",
+        "Name": "McDonald's",
+        "City": "Montréal",
+        "Address": "345 rue Bob",
+        "Phone": "450-333-1234",
+        "OpenHours": "8:00",
+        "CloseHours": "22:00",
+        "Nb2Seaters": "20",
+        "Nb4Seaters": "10",
+        "Nb6Seaters": "5",
+        "Nb8Seaters": "1"
+    },
+    "450-555-1234": {
+        "Username": "The Tim Hortons",
+        "Email": "1234@hotmail.com",
+        "Name": "Tim Hortons",
+        "City": "Montréal",
+        "Address": "345 rue Bob",
+        "Phone": "450-555-1234",
+        "OpenHours": "8:00",
+        "CloseHours": "22:00",
+        "Nb2Seaters": "20",
+        "Nb4Seaters": "10",
+        "Nb6Seaters": "5",
+        "Nb8Seaters": "1"
+    }
+}
