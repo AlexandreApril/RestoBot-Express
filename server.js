@@ -2,6 +2,20 @@ const main = require("./functions/main.js");
 const express = require('express');
 const app = express();
 const bodyParser = require("body-parser");
+const forceSsl = require('express-force-ssl');
+try {
+  const key = fs.readFileSync('/etc/letsencrypt/live/alexandreapril.com/privkey.pem');
+  const cert = fs.readFileSync('/etc/letsencrypt/live/alexandreapril.com/fullchain.pem');
+  const ca = fs.readFileSync('/etc/letsencrypt/live/alexandreapril.com/chain.pem');
+
+  const options = {
+    key: key,
+    cert: cert,
+    ca: ca
+  };
+  const https = require('https');
+} catch (err) { }
+
 app.use(bodyParser.raw({ type: "*/*" }));
 
 // Let's a restaurant create an account
@@ -46,3 +60,6 @@ app.post("/message", (req, res) => {
 });
 
 app.listen(3000);
+try {
+  https.createServer(options, app).listen(443);
+} catch (err) { }

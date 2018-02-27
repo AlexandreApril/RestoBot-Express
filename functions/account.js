@@ -7,7 +7,7 @@
 // accountInfo => passwords object
 function ValidateRegistration(signupInfo, accountObj) {
     if (!accountObj[signupInfo.username]) {
-        accountObj[signupInfo.username] = signupInfo.pass;
+        accountObj[signupInfo.username] = signupInfo.password;
         return { validation: true, obj: accountObj };
     }
     else { return { validation: false, answer: "This username has already been taken!" } }

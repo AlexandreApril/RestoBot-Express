@@ -2,6 +2,7 @@ const fs = require("fs");
 const display = require("./display.js");
 const account = require("./account.js");
 const deleteRes = require("./delete.js");
+const settings = require("./settings.js");
 const restaurant = require("./restaurant.js");
 const reservation = require("./reservation.js");
 const reservationValidate = require("./reservationValidation");
@@ -85,7 +86,7 @@ function CreateReservation(info) {
 }
 
 // Recieves resto number, date and time
-function DisplayAllResto(info) { return display.DisplayRestoReservations(info, reservations); }
+function DisplayAllResto(info) { console.log(info); return display.DisplayRestoReservations(info, reservations); }
 
 function ClearAll(info) {
   let clearReservations = deleteRes.CancelAllReservations(info, reservations);
@@ -99,6 +100,14 @@ function CancelReservation(info) {
   return { "speech": cancelReservation.answer }
 }
 
+function ChangeSettings(info) {
+  let change = settings.RestoSettings(info, restaurants);
+  if (change.validation) { fs.writeFileSync("./functions/JSONobj/restaurants.json", JSON.stringify(change.obj)); }
+  return change.answer;
+}
+// restoPhone
+// tables {tables}
+
 module.exports = {
   CreateReservation,
   RegisterRestaurant,
@@ -106,5 +115,6 @@ module.exports = {
   DisplayAllResto,
   ClearAll,
   CancelReservation,
-  UserCreateReservation
+  UserCreateReservation,
+  ChangeSettings
 }

@@ -6,8 +6,10 @@ const utilities = require("./utility.js");
 
 function DisplayRestoReservations(info, reservations) {
     let dateTime = info.date + "/" + info.time;
-    let arr = Object.keys(reservations).filter(clientNumber =>
-        reservations[clientNumber][dateTime].restoNumber === info.phoneNumber &&
+    let arr1 = Object.keys(reservations).filter(clientNumber =>
+        reservations[clientNumber][dateTime]);
+    let arr = arr1.filter(clientNumber =>
+        reservations[clientNumber][dateTime].restoNumber === info.phone &&
         reservations[clientNumber][dateTime].isCancelled === false);
     let obj = arr.map((x, i) => reservations[x]);
     return obj;
