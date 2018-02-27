@@ -4,22 +4,25 @@
 
 const utilities = require("./utility.js");
 
-function CancelRestoReservations(info, reservations) {
-    let dateTime = info.date + "/" + info.time;
-    let arr = Object.keys(reservations).filter(clientNumber =>
-        reservations[clientNumber][dateTime].restoNumber === info.phoneNumber &&
-        reservations[clientNumber][dateTime].isCancelled === false);
-    let obj = arr.map((x, i) => reservations[x]);
-    return obj;
-}
-
+// Simply takes the date, the time and the phone number of the restaurant in order to delete all of it's reservations at that specific date and time
 function CancelAllReservations(info, reservations) {
     let dateTime = info.date + "/" + info.time;
     let arr = Object.keys(reservations).filter(clientNumber =>
         reservations[clientNumber][dateTime].restoNumber === info.phoneNumber &&
-        reservations[clientNumber][dateTime].isCancelled === false);
-    let obj = arr.map((x, i) => reservations[x]);
-    return { validation: true, answer: "It worked", obj: obj };
+        reservations[clientNumber][dateTime].isCancelled === false &&
+        reservations[clientNumber][dateTime].isOver === false);
+    if (arr.length === 0) { return { validation: false, answer: "There is nothing to cancel!" } }
+    else {
+        arr.map((x, i) => reservations[x][dateTime].isCancelled = true);
+        return { validation: true, answer: "It worked", obj: reservations };
+    }
+}
+
+function CancelRestoReservations(info, reservations) {
+    let dateTime = info.date + "/" + info.time;
+    let clientNumber = info.clientNumber;
+    reservations[clientNumber][dateTime].isCancelled = true;
+    return { answer: "Reservations deleted.", obj: reservations }
 }
 
 function CancelClientReservations(info, reservations) {
@@ -37,5 +40,6 @@ function CancelClientReservations(info, reservations) {
 
 module.exports = {
     CancelRestoReservations,
+    CancelAllReservations,
     CancelClientReservations
 }

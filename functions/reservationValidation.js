@@ -9,15 +9,9 @@ const utilities = require("./utility.js");
 function ValidateReservation(info, reservations, restaurants) {
     let clientNumber = info.originalRequest.data.From.slice(1); // This is where the clients phone number is stored when RestoBot is messaged, this will be used as the reservations unique ID if the reservation is valid
     let parameters = info.result.parameters; // This is where all the information needed to make a reservation is being kept
-    if (JSON.stringify(parameters) === "{}") { return { validation: false } }
+    if (JSON.stringify(parameters) === "{}") { return { validation: false, answer: "You are not supposed to see this." } }
     // No reservations can be made if there are no restaurants to make reservations from
     if (JSON.stringify(restaurants) === "{}") { return { validation: false, answer: "I'm sorry, it would seem that my database does not contain any restaurants." } }
-    if (parameters.name === "") { return { validation: false, answer: "Whoops, error", } }
-    else if (parameters['given-name'] === "") { return { validation: false, answer: "Whoops, error", } }
-    else if (parameters['number-integer'] === "") { return { validation: false, answer: "Whoops, error", } }
-    else if (parameters['geo-city'] === "") { return { validation: false, answer: "Whoops, error", } }
-    else if (parameters.date === "") { return { validation: false, answer: "Whoops, error", } }
-    else if (parameters.time === "") { return { validation: false, answer: "Whoops, error", } }
 
     let restoName = parameters.name; // Needed to find if the desired restaurant exists in the restaurant object
     let restoCity = parameters['geo-city']; // Checks if restaurant exists in that area
@@ -129,6 +123,34 @@ function ValidateReservation(info, reservations, restaurants) {
     }
 }
 
+function ValidateUserReservation(info, reservations) {
+    // let clientName = info.clientName;
+    let clientNumber = info.clientNumber;
+    let restoNumber = info.restoNumber; // The restaurants phone number
+    let nbOfPeople = info.nbPeople;
+    let nbSeats = info.nbSeats; // Number of seats needed
+    let date = info.date; // We will need it later
+    let time = info.time.slice(0, -3); // Would usually display HH:MM:SS, now simply displays HH:MM
+    let dateTime = date + "/" + time; // Needed to make sure a client does not make two reservations at the same time
+    let hourIn = utilities.CheckTime(parameters.time); // See the CheckTime function
+    let hourOut = hourIn + 1; // Lets us store the hour the reservation should end
+    if (reservations[clientNumber]) { // Verifies if an object with that ID (phone number) exists, or else what's inside would cause an error
+        // Verifies the client isn't trying to making two reservations at the same time, on the same day
+        // Clients cannot make reservations withing half an hour of one another since each reservation lasts one hour
+        let avaiable = Object.keys(reservations[clientNumber]).filter(DateTime =>
+            reservations[clientNumber][DateTime].date === date &&
+            (hourIn <= reservations[clientNumber][DateTime].hourIn < hourOut ||
+                hourIn < reservations[clientNumber][DateTime].hourOut <= hourOut));
+        if (avaiable.length >= 1) {
+            return {
+                validation: false,
+                answer: "I cannot make this reservations because it would conflict with another one of your reservations."
+            }
+        }
+    }
+}
+
 module.exports = {
-    ValidateReservation
+    ValidateReservation,
+    ValidateUserReservation
 }

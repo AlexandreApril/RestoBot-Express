@@ -66,7 +66,6 @@ function GetDateTime() {
     let date = GetDate();
     let time = GetTime();
     let dateTime = date + "/" + time;
-    console.log(dateTime);
     return dateTime;
 }
 

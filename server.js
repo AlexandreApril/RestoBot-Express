@@ -36,7 +36,8 @@ app.post("/displayReservations", (req, res) => {
 });
 // Reservations confirmed by the restaurant
 app.get("/userConfirm", (req, res) => {
-  return res.send("");
+  let json = JSON.parse(req.body);
+  return res.send(JSON.stringify(main.UserCreateReservation(json)));
 });
 // Takes the text the user sends to RestoBot and sends RestoBots response
 app.post("/message", (req, res) => {

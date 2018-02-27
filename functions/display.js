@@ -9,7 +9,6 @@ function DisplayRestoReservations(info, reservations) {
     let arr = Object.keys(reservations).filter(clientNumber =>
         reservations[clientNumber][dateTime].restoNumber === info.phoneNumber &&
         reservations[clientNumber][dateTime].isCancelled === false);
-    console.log(arr);
     let obj = arr.map((x, i) => reservations[x]);
     return obj;
 }

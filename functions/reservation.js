@@ -8,10 +8,7 @@ function AddReservation(info, reservations) {
     if (info.originalRequest.data.Body.toLowerCase() === "no") { return "Reservation canceled."; }
     let clientNumber = info.originalRequest.data.From.slice(1); // This is where the clients phone number is stored when RestoBot is messaged, this will be used as the reservations unique ID if the reservation is valid
     let parameters = info.result.contexts.filter(context => context.name === "reservationconfirmation")[0].parameters; // This is where all the information needed to make a reservation is being kept  
-    let restoNumber = parameters.choice[0].phone; // The restaurants phone number
-    let address = parameters.choice[0].address; // The restaurants address
     let nbOfPeople = parameters.choice[0].nbPeople === "1" ? "1 person" : parameters.choice[0].nbPeople + " people"; // Not usefull, just good grammar
-    let nbSeats = parameters.choice[0].nbSeats; // Number of seats needed
     let date = parameters.date; // We will need it later
     let time = parameters.time.slice(0, -3); // Would usually display HH:MM:SS, now simply displays HH:MM
     let dateTime = date + "/" + time; // Needed to make sure a client does not make two reservations at the same time
@@ -22,11 +19,11 @@ function AddReservation(info, reservations) {
         client: parameters['given-name'], // The client's name
         clientNumber, // The clients phone number
         restaurant: parameters.name, // The restaurants name
-        restoNumber, // The restaurants phone number
+        restoNumber: parameters.choice[0].phone, // The restaurants phone number
         city: parameters['geo-city'], // The city in which the restaurant is
-        address, // The restaurants address
+        address: parameters.choice[0].address, // The restaurants address
         nbOfPeople, // The number of people who will be present
-        nbSeats, // The number of seats that will be taken
+        nbSeats: parameters.choice[0].nbSeats, // The number of seats that will be taken
         date, // The date the reservation will take place
         time, // The time the reservation will take place
         hourIn, // The time the reservation begins
@@ -35,17 +32,47 @@ function AddReservation(info, reservations) {
         isCancelled: false // Determines if the reservation has been cancelled, because it has just been created, it is set to false by default
     }
     reservations[clientNumber] = tempObj; // Stores the new reservation into the reservation object, could use parameters but we are adding additionnal information
-
     setTimeout(() => reservations[clientNumber][dateTime].isOver = true, new Date(dateTime) - new Date());
-
     return { // Returns the confirmation message once everything is made
-        reservations: reservations,
-        remainingTime: new Date(dateTime) - new Date(),
+        obj: reservations,
         answer: "Successfully created a reservation under the name of " + parameters['given-name'] + " at " + parameters['name'] +
             " for " + nbOfPeople + " in " + parameters['geo-city'] + " on " + parameters.date + " at " + time + "!"
-    };
+    }
+}
+
+function AddUserReservation(info, reservations) {
+    let nbOfPeople = info.nbPeople === "1" ? "1 person" : info.nbPeople + " people"; // Not usefull, just good grammar
+    let date = info.date;
+    let time = info.time.slice(0, -3); // Would usually display HH:MM:SS, now simply displays HH:MM
+    let dateTime = date + "/" + time; // Needed to make sure a client does not make two reservations at the same time
+    let hourIn = utilities.CheckTime(time); // See the CheckTime function
+    let hourOut = hourIn + 1; // Lets us store the hour the reservation should end
+    let tempObj = {};
+    tempObj[dateTime] = {
+        client: info.clientName, // The client's name
+        clientNumber: info.clientNumber, // The clients phone number
+        restaurant: info.restoName, // The restaurants name
+        restoNumber: info.restoNumber, // The restaurants phone number
+        city: info.city, // The city in which the restaurant is
+        address: info.address, // The restaurants address
+        nbOfPeople, // The number of people who will be present
+        nbSeats: info.nbSeats, // The number of seats that will be taken
+        date, // The date the reservation will take place
+        time, // The time the reservation will take place
+        hourIn, // The time the reservation begins
+        hourOut, // The time the reservation ends
+        isOver: false, // Determines is the reservation is over, because it has just been created, it is set to false by default
+        isCancelled: false // Determines if the reservation has been cancelled, because it has just been created, it is set to false by default
+    }
+    reservations[info.clientNumber] = tempObj;
+    setTimeout(() => reservations[info.clientNumber][dateTime].isOver = true, new Date(dateTime) - new Date());
+    return {
+        obj: reservations,
+        answer: "Reservation completed successfully!"
+    }
 }
 
 module.exports = {
-    AddReservation
+    AddReservation,
+    AddUserReservation
 }

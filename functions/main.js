@@ -39,9 +39,16 @@ function RegisterRestaurant(info) {
 }
 
 // Verifies if the username and password are valid during user login
-function RestaurantLogIn(info) {
-  if (account.ValidateLogIn(info, passwords)) { return "Login successful!"; }
-  else { return "Your username or password are incorrect!"; }
+function RestaurantLogIn(info) { return account.ValidateLogIn(info, passwords); }
+
+function UserCreateReservation(info) {
+  let confirmation = reservationValidate.ValidateUserReservation(info, reservations);
+  if (confirmation.validation) {
+    let makeReservation = reservation.AddUserReservation(info, reservations);
+    fs.writeFileSync("./JSONobj/reservations.json", JSON.stringify(makeReservation.obj));
+    return { "speech": makeReservation.answer }
+  }
+  return confirmation.answer;
 }
 
 // Adds a reservation to the reservation object using the clients phone number as the unique ID
@@ -49,9 +56,10 @@ function RestaurantLogIn(info) {
 // Returns the confirmation message once everything is made
 function CreateReservation(info) {
   switch (info.result.action) {
+    // Client confirms if they want to make the reservation or not
     case 'Reservation-Create.Reservation-Confirmation':
       let makeReservation = reservation.AddReservation(info, reservations);
-      fs.writeFileSync("./functions/JSONobj/reservations.json", JSON.stringify(makeReservation.reservation));
+      fs.writeFileSync("./functions/JSONobj/reservations.json", JSON.stringify(makeReservation.obj));
       return { "speech": makeReservation.answer };
     case 'Reservation-Create.Reservation-Options':
       let choice = { 0: info.result.contexts.filter(context => context.name === "reservationoption")[0].parameters.choice[info.result.parameters['number-integer'] - 1] }
@@ -77,24 +85,26 @@ function CreateReservation(info) {
 }
 
 // Recieves resto number, date and time
-function DisplayAllResto(info) {
-  let displayThis = display.DisplayRestoReservations(info, reservations);
-  return displayThis;
-}
+function DisplayAllResto(info) { return display.DisplayRestoReservations(info, reservations); }
 
 function ClearAll(info) {
   let clearReservations = deleteRes.CancelAllReservations(info, reservations);
-  return clearReservations;
+  if (clearReservations.validation) { fs.writeFileSync("./functions/JSONobj/reservations.json", JSON.stringify(clearReservations.obj)); }
+  return { "speech": clearReservations.answer }
 }
 
-function CancelReservation() {
-  let clearReservation = deleteRes.CancelAllReservations(info, reservations);
-  return clearReservation;
+function CancelReservation(info) {
+  let cancelReservation = deleteRes.CancelRestoReservations(info, reservations);
+  fs.writeFileSync("./functions/JSONobj/reservations.json", JSON.stringify(cancelReservation.obj));
+  return { "speech": cancelReservation.answer }
 }
 
 module.exports = {
   CreateReservation,
   RegisterRestaurant,
   RestaurantLogIn,
-  DisplayAllResto
+  DisplayAllResto,
+  ClearAll,
+  CancelReservation,
+  UserCreateReservation
 }
