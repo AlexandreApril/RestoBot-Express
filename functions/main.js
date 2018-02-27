@@ -1,22 +1,21 @@
 const fs = require("fs");
+const display = require("./display.js");
 const account = require("./account.js");
+const deleteRes = require("./delete.js");
 const restaurant = require("./restaurant.js");
 const reservation = require("./reservation.js");
 const reservationValidate = require("./reservationValidation");
 const utilities = require("./utility.js");
 
-let reservationObject = {}; // Object containing all the info about the reservations
-let restoObject = {}; // Object containing all the info about the restaurants
+let reservations = {}; // Object containing all the info about the reservations
+let restaurants = {}; // Object containing all the info about the restaurants
 let passwords = {}; // Object containing all the info about the accounts
 
 try { // Verifies if a list of reservations already exists
-  reservationObject = JSON.parse(fs.readFileSync("./functions/JSONobj/reservationObject.json"));
-} catch (err) { }
-try { // Verifies if a list of reservations already exists
-  singleReservation = JSON.parse(fs.readFileSync("./functions/JSONobj/singleReservation.json"));
+  reservations = JSON.parse(fs.readFileSync("./functions/JSONobj/reservations.json"));
 } catch (err) { }
 try { // Verifies if a list of restaurants already exists
-  restoObject = JSON.parse(fs.readFileSync("./functions/JSONobj/restoObject.json"));
+  restaurants = JSON.parse(fs.readFileSync("./functions/JSONobj/restaurants.json"));
 } catch (err) { }
 try { // Verifies if a list of passwords already exists
   passwords = JSON.parse(fs.readFileSync("./functions/JSONobj/passwords.json"));
@@ -29,10 +28,10 @@ try { // Verifies if a list of passwords already exists
 function RegisterRestaurant(info) {
   let register = account.ValidateRegistration(info, passwords);
   if (register.validation) {
-    let restoValid = restaurant.CreateRestoObject(info, restoObject);
+    let restoValid = restaurant.CreateRestoObject(info, restaurants);
     if (restoValid.validation) {
       fs.writeFileSync("./functions/JSONobj/passwords.json", JSON.stringify(register.obj));
-      fs.writeFileSync("./functions/JSONobj/restoObject.json", JSON.stringify(restaurant.AddRestaurant(info, restoObject)));
+      fs.writeFileSync("./functions/JSONobj/restaurants.json", JSON.stringify(restaurant.AddRestaurant(info, restaurants)));
     }
     return restoValid.answer;
   }
@@ -50,32 +49,52 @@ function RestaurantLogIn(info) {
 // Returns the confirmation message once everything is made
 function CreateReservation(info) {
   switch (info.result.action) {
-    case 'Reservations.Reservations-Confirmation':
-      let reservationObj = reservation.AddReservation(info, reservationObject);
-      fs.writeFileSync("./functions/JSONobj/singleReservation.json", JSON.stringify(reservationObj.subObj));
-      fs.writeFileSync("./functions/JSONobj/reservationObject.json", JSON.stringify(reservationObj.obj));
-      return { "speech": reservationObj.answer };
-    case 'Reservations.Reservations-Choice':
-      let choice = { 0: info.result.contexts.filter(context => context.name === "availablerestaurants")[0].parameters.choice[info.result.parameters['number-integer'] - 1] }
+    case 'Reservation-Create.Reservation-Confirmation':
+      let makeReservation = reservation.AddReservation(info, reservations);
+      fs.writeFileSync("./functions/JSONobj/reservations.json", JSON.stringify(makeReservation.reservation));
+      return { "speech": makeReservation.answer };
+    case 'Reservation-Create.Reservation-Options':
+      let choice = { 0: info.result.contexts.filter(context => context.name === "reservationoption")[0].parameters.choice[info.result.parameters['number-integer'] - 1] }
       return {
-        "speech": "Confirm reservation?" + utilities.Confirmation(choice, 1),
+        "speech": "Confirm reservation?" + utilities.Confirmation(choice, 1, false),
         contextOut: [{
-          "name": "confirmReservation",
+          "name": "reservationconfirmation",
           parameters: { choice },
           "lifespan": 1
         }]
       }
+    case 'Reservation-Display':
+      return { "speech": display.DisplayClientReservations(info, reservations) }
+    case 'Reservation-Delete':
+      let deleteReservation = deleteRes.DeleteClientReservations(info, reservations);
+      if (deleteReservation.validation) { fs.writeFileSync("./functions/JSONobj/reservations.json", JSON.stringify(deleteReservation.obj)); }
+      return { "speech": deleteReservation.answer }
     default:
-      let confirmation = reservationValidate.ValidateReservation(info, reservationObject, restoObject);
-      if (confirmation.validation === true) {
-        return { "speech": confirmation.answer, contextOut: confirmation.contextOut }
-      }
-      else { return { "speech": confirmation.answer } }
+      let confirmation = reservationValidate.ValidateReservation(info, reservations, restaurants);
+      if (confirmation.validation === true) { return { "speech": confirmation.answer, contextOut: confirmation.contextOut } }
+      else { return { "speech": confirmation.answer, contextOut: confirmation.contextOut } }
   }
+}
+
+// Recieves resto number, date and time
+function DisplayAllResto(info) {
+  let displayThis = display.DisplayRestoReservations(info, reservations);
+  return displayThis;
+}
+
+function ClearAll(info) {
+  let clearReservations = deleteRes.CancelAllReservations(info, reservations);
+  return clearReservations;
+}
+
+function CancelReservation() {
+  let clearReservation = deleteRes.CancelAllReservations(info, reservations);
+  return clearReservation;
 }
 
 module.exports = {
   CreateReservation,
   RegisterRestaurant,
-  RestaurantLogIn
+  RestaurantLogIn,
+  DisplayAllResto
 }

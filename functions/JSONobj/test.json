@@ -4,13 +4,13 @@
         "data": {
             "MessagingServiceSid": "MG30803df423f6ac98b5d4c1a759b90f3f",
             "ApiVersion": "2010-04-01",
-            "SmsSid": "SMbab0d3164de5c97f47d794dda90ac2f3",
+            "SmsSid": "SM18936b5db805950b4bc3d21a690a71e6",
             "SmsStatus": "received",
-            "SmsMessageSid": "SMbab0d3164de5c97f47d794dda90ac2f3",
+            "SmsMessageSid": "SM18936b5db805950b4bc3d21a690a71e6",
             "NumSegments": "1",
             "ToState": "QC",
             "From": "+15149804269",
-            "MessageSid": "SMbab0d3164de5c97f47d794dda90ac2f3",
+            "MessageSid": "SM18936b5db805950b4bc3d21a690a71e6",
             "AccountSid": "AC0ae1bbf711277ab3e08dd3c498b9c62c",
             "ToCity": "ST GENEVIA VE",
             "FromCountry": "CA",
@@ -19,112 +19,45 @@
             "To": "+15147002311",
             "FromZip": "",
             "ToCountry": "CA",
-            "Body": "Reservation Alex At McDonalds for 4 in Montreal on December 30 at 10:30pm",
+            "Body": "display all",
             "NumMedia": "0",
             "FromState": "QC"
         }
     },
-    "id": "54c2bbfe-8678-4fce-aabd-c814d5e14da1",
-    "timestamp": "2018-02-24T00:15:44.707Z",
+    "id": "c282a63a-1357-425d-808d-66bc5432fdd8",
+    "timestamp": "2018-02-27T02:12:05.247Z",
     "lang": "en",
     "result": {
         "source": "agent",
-        "resolvedQuery": "Reservation Alex At McDonalds for 4 in Montreal on December 30 at 10:30pm",
+        "resolvedQuery": "display all",
         "speech": "",
-        "action": "",
+        "action": "Reservation-Display",
         "actionIncomplete": false,
-        "parameters": {
-            "date": "2018-12-30",
-            "number-integer": "4",
-            "geo-city": "Montréal",
-            "name": "McDonald's",
-            "time": "22:30:00",
-            "given-name": "Alex"
-        },
+        "parameters": {},
         "contexts": [
-            {
-                "name": "availablerestaurants",
-                "parameters": {
-                    "given-name.original": "Alex",
-                    "date": "2018-12-30",
-                    "name.original": "McDonalds",
-                    "time.original": "10:30pm",
-                    "number-integer": "4",
-                    "number-integer.original": "4",
-                    "date.original": "December 30",
-                    "geo-city": "Montréal",
-                    "name": "McDonald's",
-                    "geo-city.original": "Montreal",
-                    "given-name": "Alex",
-                    "time": "22:30:00"
-                },
-                "lifespan": 2
-            },
             {
                 "name": "generic",
                 "parameters": {
-                    "given-name.original": "Alex",
-                    "date": "2018-12-30",
-                    "name.original": "McDonalds",
-                    "time.original": "10:30pm",
-                    "number-integer": "4",
-                    "number-integer.original": "4",
-                    "twilio_sender_id": "+15149804269",
-                    "date.original": "December 30",
-                    "geo-city": "Montréal",
-                    "name": "McDonald's",
-                    "geo-city.original": "Montreal",
-                    "given-name": "Alex",
-                    "time": "22:30:00"
+                    "twilio_sender_id": "+15149804269"
                 },
-                "lifespan": 3
-            },
-            {
-                "name": "reservations-followup",
-                "parameters": {
-                    "given-name.original": "Alex",
-                    "date": "2018-12-30",
-                    "name.original": "McDonalds",
-                    "time.original": "10:30pm",
-                    "number-integer": "4",
-                    "number-integer.original": "4",
-                    "date.original": "December 30",
-                    "geo-city": "Montréal",
-                    "name": "McDonald's",
-                    "geo-city.original": "Montreal",
-                    "given-name": "Alex",
-                    "time": "22:30:00"
-                },
-                "lifespan": 2
-            },
-            {
-                "name": "confirmreservation",
-                "parameters": {
-                    "given-name.original": "Alex",
-                    "date": "2018-12-30",
-                    "name.original": "McDonalds",
-                    "time.original": "10:30pm",
-                    "number-integer": "4",
-                    "number-integer.original": "4",
-                    "date.original": "December 30",
-                    "geo-city": "Montréal",
-                    "name": "McDonald's",
-                    "geo-city.original": "Montreal",
-                    "given-name": "Alex",
-                    "time": "22:30:00"
-                },
-                "lifespan": 1
+                "lifespan": 4
             }
         ],
         "metadata": {
-            "intentId": "4c01180b-828c-4cd9-88fa-6a5d6798068c",
+            "intentId": "4658d103-a0a2-4e31-a376-5e479107073c",
             "webhookUsed": "true",
-            "webhookForSlotFillingUsed": "true",
-            "intentName": "Reservations"
+            "webhookForSlotFillingUsed": "false",
+            "endConversation": true,
+            "intentName": "Reservation-Display"
         },
         "fulfillment": {
             "speech": "",
-            "messages": []
+            "messages": [
+                {
+                    "type": 0,
+                    "speech": ""
+                }
+            ]
         },
         "score": 1
     },
@@ -133,5 +66,5 @@
         "errorType": "success",
         "webhookTimedOut": false
     },
-    "sessionId": "76641924-8323-4c7b-99ca-91e49990b509"
+    "sessionId": "f6e35cd9-92d1-4ecd-add2-115a88017228"
 }

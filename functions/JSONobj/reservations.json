@@ -1,9 +1,11 @@
 {
-    "+15149804269": {
+    "15149804269": {
         "2018-12-30/10:30": {
-            "client": "Alex",
+            "client": "Timmy",
             "phoneNumber": "+15149804269",
             "restaurant": "McDonald's",
+            "restoNumber": "450-123-1234",
+            "address": "123 rue bob",
             "city": "Montréal",
             "nbOfPeople": "3 people",
             "nbSeats": 4,
@@ -11,6 +13,7 @@
             "time": "10:30",
             "hourIn": 10.5,
             "hourOut": 11.5,
+            "isOver": false,
             "isCancelled": false
         }
     }

@@ -28,12 +28,14 @@ function CheckSeats(nbPeople) {
     }
 }
 
-function Confirmation(choice, nbItems) {
+function Confirmation(choice, nbItems, bool) {
+    let option = "";
     let string = "\n";
     for (let i = 0; i < nbItems; i++) {
-      let x = i + 1;
+        let x = i + 1;
+        if (bool) { option = "Number: " + x + "\n"; }
         string = string + "\n" +
-            "Number : " + x + "\n" +
+            option +
             "Name : " + choice[i].name + "\n" +
             "City : " + choice[i].city + "\n" +
             "Address : " + choice[i].address + "\n" +
@@ -42,8 +44,37 @@ function Confirmation(choice, nbItems) {
     return string;
 }
 
+function GetDate() {
+    let date = new Date();
+    let year = date.getFullYear();
+    let month = (date.getMonth() < 10 ? '0' : '') + (date.getMonth() + 1); // +1 because January is 0
+    let day = (date.getDay() < 10 ? '0' : '') + date.getDay();
+    date = year + '-' + month + '-' + day
+    return date;
+}
+
+function GetTime() {
+    let time = new Date();
+    let hours = (time.getHours() < 10 ? '0' : '') + time.getHours();
+    let minutes = (time.getMinutes() < 10 ? '0' : '') + time.getMinutes();
+    let seconds = (time.getSeconds() < 10 ? '0' : '') + time.getSeconds();
+    time = hours + ":" + minutes + ":" + seconds;
+    return time;
+}
+
+function GetDateTime() {
+    let date = GetDate();
+    let time = GetTime();
+    let dateTime = date + "/" + time;
+    console.log(dateTime);
+    return dateTime;
+}
+
 module.exports = {
     CheckTime,
     CheckSeats,
-    Confirmation
+    Confirmation,
+    GetDateTime,
+    GetDate,
+    GetTime
 }
