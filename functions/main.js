@@ -27,6 +27,7 @@ try { // Verifies if a list of passwords already exists
 // Validates if the Restaurant has not already been registered in the database
 // Saves the account information and the restaurant object in a file
 function RegisterRestaurant(info) {
+  console.log("RegisterRestaurant");
   let register = account.ValidateRegistration(info, passwords);
   if (register.validation) {
     let restoValid = restaurant.CreateRestoObject(info, restaurants);
@@ -40,9 +41,10 @@ function RegisterRestaurant(info) {
 }
 
 // Verifies if the username and password are valid during user login
-function RestaurantLogIn(info) { return account.ValidateLogIn(info, passwords); }
+function RestaurantLogIn(info) { console.log("RestaurantLogIn"); return account.ValidateLogIn(info, passwords); }
 
 function UserCreateReservation(info) {
+  console.log("UserCreateReservation");
   let confirmation = reservationValidate.ValidateUserReservation(info, reservations);
   if (confirmation.validation) {
     let makeReservation = reservation.AddUserReservation(info, reservations);
@@ -56,13 +58,16 @@ function UserCreateReservation(info) {
 // Saves the reservation object in a file
 // Returns the confirmation message once everything is made
 function CreateReservation(info) {
+  console.log("CreateReservation");
   switch (info.result.action) {
     // Client confirms if they want to make the reservation or not
     case 'Reservation-Create.Reservation-Confirmation':
+      console.log("Reservation-Create.Reservation-Confirmation");
       let makeReservation = reservation.AddReservation(info, reservations);
       fs.writeFileSync("./functions/JSONobj/reservations.json", JSON.stringify(makeReservation.obj));
       return { "speech": makeReservation.answer };
     case 'Reservation-Create.Reservation-Options':
+      console.log("Reservation-Create.Reservation-Options");
       let choice = { 0: info.result.contexts.filter(context => context.name === "reservationoption")[0].parameters.choice[info.result.parameters['number-integer'] - 1] }
       return {
         "speech": "Confirm reservation?" + utilities.Confirmation(choice, 1, false),
@@ -73,12 +78,15 @@ function CreateReservation(info) {
         }]
       }
     case 'Reservation-Display':
+      console.log("Reservation-Display");
       return { "speech": display.DisplayClientReservations(info, reservations) }
     case 'Reservation-Delete':
+      console.log("Reservation-Delete");
       let deleteReservation = deleteRes.DeleteClientReservations(info, reservations);
       if (deleteReservation.validation) { fs.writeFileSync("./functions/JSONobj/reservations.json", JSON.stringify(deleteReservation.obj)); }
       return { "speech": deleteReservation.answer }
     default:
+      console.log("default");
       let confirmation = reservationValidate.ValidateReservation(info, reservations, restaurants);
       if (confirmation.validation === true) { return { "speech": confirmation.answer, contextOut: confirmation.contextOut } }
       else { return { "speech": confirmation.answer, contextOut: confirmation.contextOut } }
@@ -86,27 +94,28 @@ function CreateReservation(info) {
 }
 
 // Recieves resto number, date and time
-function DisplayAllResto(info) { console.log(info); return display.DisplayRestoReservations(info, reservations); }
+function DisplayAllResto(info) { console.log("DisplayAllResto"); return display.DisplayRestoReservations(info, reservations); }
 
 function ClearAll(info) {
+  console.log("ClearAll");
   let clearReservations = deleteRes.CancelAllReservations(info, reservations);
   if (clearReservations.validation) { fs.writeFileSync("./functions/JSONobj/reservations.json", JSON.stringify(clearReservations.obj)); }
   return { "speech": clearReservations.answer }
 }
 
 function CancelReservation(info) {
+  console.log("CancelReservation");
   let cancelReservation = deleteRes.CancelRestoReservations(info, reservations);
   fs.writeFileSync("./functions/JSONobj/reservations.json", JSON.stringify(cancelReservation.obj));
   return { "speech": cancelReservation.answer }
 }
 
 function ChangeSettings(info) {
+  console.log("ChangeSettings");
   let change = settings.RestoSettings(info, restaurants);
-  if (change.validation) { fs.writeFileSync("./functions/JSONobj/restaurants.json", JSON.stringify(change.obj)); }
+  fs.writeFileSync("./functions/JSONobj/restaurants.json", JSON.stringify(change.obj));
   return change.answer;
 }
-// restoPhone
-// tables {tables}
 
 module.exports = {
   CreateReservation,

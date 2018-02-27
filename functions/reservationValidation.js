@@ -7,6 +7,7 @@ const utilities = require("./utility.js");
 // Validates every reservation request. If the request is invalid, returns a string describing the reason as to why the request failed.
 // In case of a failure, whatever is returned is what RestoBot will say to the user.
 function ValidateReservation(info, reservations, restaurants) {
+    console.log("ValidateReservation");
     let clientNumber = info.originalRequest.data.From.slice(1); // This is where the clients phone number is stored when RestoBot is messaged, this will be used as the reservations unique ID if the reservation is valid
     let parameters = info.result.parameters; // This is where all the information needed to make a reservation is being kept
     if (JSON.stringify(parameters) === "{}") { return { validation: false, answer: "You are not supposed to see this." } }
@@ -124,6 +125,7 @@ function ValidateReservation(info, reservations, restaurants) {
 }
 
 function ValidateUserReservation(info, reservations) {
+    console.log("ValidateUserReservation");
     // let clientName = info.clientName;
     let clientNumber = info.clientNumber;
     let restoNumber = info.restoNumber; // The restaurants phone number

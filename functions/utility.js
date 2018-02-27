@@ -4,6 +4,7 @@
 
 // Used when creating a reservation, takes the value 'time' recieved and converts it into a number we can use when flitering through the reservation objects
 function CheckTime(time) {
+    console.log("CheckTime");
     let reservationTime = time.split(":"); // example "15:30:00" =>  [ 15, 30, 00 ]
     let hours = parseInt(reservationTime[0]); // example hours = 15
     let minutes = parseInt(reservationTime[1]); // example minutes = 30
@@ -14,6 +15,7 @@ function CheckTime(time) {
 }
 // Used when creating a reservation, takes the number of people expected to go and finds the numbers of seats needed to seat them all
 function CheckSeats(nbPeople) {
+    console.log("CheckSeats");
     switch (nbPeople) {
         case 0: return 0; // If nbPeople is 0, reservation is declined because you cannot make a reservation for 0 people
         case 1:
@@ -29,6 +31,7 @@ function CheckSeats(nbPeople) {
 }
 
 function Confirmation(choice, nbItems, bool) {
+    console.log("Confirmation");
     let option = "";
     let string = "\n";
     for (let i = 0; i < nbItems; i++) {
@@ -45,6 +48,7 @@ function Confirmation(choice, nbItems, bool) {
 }
 
 function GetDate() {
+    console.log("GetDate");
     let date = new Date();
     let year = date.getFullYear();
     let month = (date.getMonth() < 10 ? '0' : '') + (date.getMonth() + 1); // +1 because January is 0
@@ -54,6 +58,7 @@ function GetDate() {
 }
 
 function GetTime() {
+    console.log("GetTime");
     let time = new Date();
     let hours = (time.getHours() < 10 ? '0' : '') + time.getHours();
     let minutes = (time.getMinutes() < 10 ? '0' : '') + time.getMinutes();
@@ -63,6 +68,7 @@ function GetTime() {
 }
 
 function GetDateTime() {
+    console.log("GetDateTime");
     let date = GetDate();
     let time = GetTime();
     let dateTime = date + "/" + time;

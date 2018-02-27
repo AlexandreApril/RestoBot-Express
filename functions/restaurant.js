@@ -8,6 +8,7 @@
 // signupInfo => information of the account
 // info => restaurant object
 function CreateRestoObject(info, restaurants) {
+    console.log("CreateRestoObject");
     if (restaurants[info.phoneNumber]) { return { validation: false, answer: "This restaurant has already been registered!" } }
     let conflitcs = Object.keys(restaurants).filter(phoneNumber =>
         restaurants[phoneNumber].Address === info.address &&
@@ -18,6 +19,7 @@ function CreateRestoObject(info, restaurants) {
 
 // Adds a restaurant to the restaurant object using it's phone number as the unique ID
 function AddRestaurant(info, restaurants) {
+    console.log("AddRestaurant");
     restaurants[info.phoneNumber] = { // Creates a new restaurant object with it's phone number as unique ID
         Username: info.username, // Account username
         Email: info.email, // Account email

@@ -2,8 +2,8 @@ const main = require("./functions/main.js");
 const express = require('express');
 const app = express();
 const bodyParser = require("body-parser");
-const forceSsl = require('express-force-ssl');
 try {
+  const forceSsl = require('express-force-ssl');
   const key = fs.readFileSync('/etc/letsencrypt/live/alexandreapril.com/privkey.pem');
   const cert = fs.readFileSync('/etc/letsencrypt/live/alexandreapril.com/fullchain.pem');
   const ca = fs.readFileSync('/etc/letsencrypt/live/alexandreapril.com/chain.pem');

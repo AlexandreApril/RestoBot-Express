@@ -5,6 +5,7 @@ const utilities = require("./utility.js");
 
 // Adds a reservation to the reservation object using the clients phone number as the unique ID
 function AddReservation(info, reservations) {
+    console.log("AddReservation");
     if (info.originalRequest.data.Body.toLowerCase() === "no") { return "Reservation canceled."; }
     let clientNumber = info.originalRequest.data.From.slice(1); // This is where the clients phone number is stored when RestoBot is messaged, this will be used as the reservations unique ID if the reservation is valid
     let parameters = info.result.contexts.filter(context => context.name === "reservationconfirmation")[0].parameters; // This is where all the information needed to make a reservation is being kept  
@@ -41,6 +42,7 @@ function AddReservation(info, reservations) {
 }
 
 function AddUserReservation(info, reservations) {
+    console.log("AddUserReservation");
     let nbOfPeople = info.nbPeople === "1" ? "1 person" : info.nbPeople + " people"; // Not usefull, just good grammar
     let date = info.date;
     let time = info.time.slice(0, -3); // Would usually display HH:MM:SS, now simply displays HH:MM
