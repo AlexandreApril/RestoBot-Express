@@ -7,7 +7,7 @@ const utilities = require("./utility.js");
 function AddReservation(info, reservations, tempObj) {
     console.log("AddReservation");
     if (info.originalRequest.data.Body.toLowerCase() === "no") { return "Reservation canceled."; }
-    let clientNumber = info.originalRequest.data.From.slice(1); // This is where the clients phone number is stored when RestoBot is messaged, this will be used as the reservations unique ID if the reservation is valid
+    let clientNumber = utilities.CheckPhone(info.originalRequest.data.From.slice(1)); // This is where the clients phone number is stored when RestoBot is messaged, this will be used as the reservations unique ID if the reservation is valid
     let parameters = info.result.contexts.filter(context => context.name === "reservationconfirmation")[0].parameters; // This is where all the information needed to make a reservation is being kept  
     let nbOfPeople = parameters.choice[0].nbPeople === "1" ? "1 person" : parameters.choice[0].nbPeople + " people"; // Not usefull, just good grammar
     let date = parameters.date; // We will need it later
@@ -43,6 +43,7 @@ function AddReservation(info, reservations, tempObj) {
 
 function AddUserReservation(info, reservations, tempObj) {
     console.log("AddUserReservation");
+    let clientNumber = utilities.CheckPhone(info.clientNumber);
     let nbOfPeople = info.nbOfPeople === "1" ? "1 person" : info.nbOfPeople + " people"; // Not usefull, just good grammar
     let nbSeats = utilities.CheckSeats(info.nbOfPeople); // See the CheckSeats function
     let date = info.date; // We will need it later
@@ -52,7 +53,7 @@ function AddUserReservation(info, reservations, tempObj) {
     let hourOut = hourIn + 1; // Lets us store the hour the reservation should end
     tempObj[dateTime] = {
         client: info.clientName, // The client's name
-        clientNumber: info.clientNumber, // The clients phone number
+        clientNumber: clientNumber, // The clients phone number
         restaurant: info.restoName, // The restaurants name
         restoNumber: info.restoNumber, // The restaurants phone number
         city: info.city, // The city in which the restaurant is
@@ -66,8 +67,8 @@ function AddUserReservation(info, reservations, tempObj) {
         isOver: false, // Determines is the reservation is over, because it has just been created, it is set to false by default
         isCancelled: false // Determines if the reservation has been cancelled, because it has just been created, it is set to false by default
     }
-    reservations[info.clientNumber] = tempObj;
-    setTimeout(() => reservations[info.clientNumber][dateTime].isOver = true, new Date(dateTime) - new Date());
+    reservations[clientNumber] = tempObj;
+    setTimeout(() => reservations[clientNumber][dateTime].isOver = true, new Date(dateTime) - new Date());
     return {
         obj: reservations,
         tempObj: tempObj,

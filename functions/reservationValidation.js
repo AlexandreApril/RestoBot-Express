@@ -8,7 +8,7 @@ const utilities = require("./utility.js");
 // In case of a failure, whatever is returned is what RestoBot will say to the user.
 function ValidateReservation(info, reservations, restaurants) {
     console.log("ValidateReservation");
-    let clientNumber = info.originalRequest.data.From.slice(1); // This is where the clients phone number is stored when RestoBot is messaged, this will be used as the reservations unique ID if the reservation is valid
+    let clientNumber = utilities.CheckPhone(info.originalRequest.data.From.slice(1)); // This is where the clients phone number is stored when RestoBot is messaged, this will be used as the reservations unique ID if the reservation is valid
     let parameters = info.result.parameters; // This is where all the information needed to make a reservation is being kept
     if (JSON.stringify(parameters) === "{}") { return { validation: false, answer: "You are not supposed to see this." } }
     // No reservations can be made if there are no restaurants to make reservations from
@@ -121,8 +121,7 @@ function ValidateReservation(info, reservations, restaurants) {
 
 function ValidateUserReservation(info, reservations, restaurants) {
     console.log("ValidateUserReservation");
-    console.log(info);
-    let clientNumber = info.clientNumber; // The clients phone number
+    let clientNumber = utilities.CheckPhone(info.clientNumber);
     let restoNumber = info.restoNumber; // The restaurants phone number
     let nbSeats = utilities.CheckSeats(info.nbOfPeople); // See the CheckSeats function
     let date = info.date; // We will need it later
@@ -130,7 +129,6 @@ function ValidateUserReservation(info, reservations, restaurants) {
     let dateTime = date + "/" + time; // Needed to make sure a client does not make two reservations at the same time
     let hourIn = utilities.CheckTime(info.time); // See the CheckTime function
     let hourOut = hourIn + 1; // Lets us store the hour the reservation should end
-    console.log(nbSeats);
     // Verifies if an object with that ID (phone number) exists, or else what's inside would cause an error
     // Verifies the client isn't trying to making two reservations at the same time, on the same day
     // Clients cannot make reservations withing half an hour of one another since each reservation lasts one hour

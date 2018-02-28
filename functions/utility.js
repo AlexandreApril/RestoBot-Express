@@ -2,6 +2,17 @@
     This file contains every utility function we might need
 */
 
+//
+function CheckPhone(phone) {
+    console.log("CheckPhone");
+    if (phone.length === 11) {
+        phone = [phone.slice(0, 1), "-", phone.slice(1, 4), "-", phone.slice(4, 7), "-", phone.slice(7)].join('');
+    }
+    else if (phone.length === 10) {
+        phone = [phone.slice(0, 3), "-", phone.slice(3, 6), "-", phone.slice(6)].join('');
+    }
+    return phone;
+}
 // Used when creating a reservation, takes the value 'time' recieved and converts it into a number we can use when flitering through the reservation objects
 function CheckTime(time) {
     console.log("CheckTime");
@@ -76,6 +87,7 @@ function GetDateTime() {
 }
 
 module.exports = {
+    CheckPhone,
     CheckTime,
     CheckSeats,
     Confirmation,
