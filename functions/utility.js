@@ -19,6 +19,17 @@ function CheckTime(time) {
     let hours = parseInt(reservationTime[0]); // example hours = 15
     let minutes = parseInt(reservationTime[1]); // example minutes = 30
     if (minutes < 30) { minutes = 0; } // Rounds down the minutes so that reservations are only made every half hour
+    else if (minutes > 30) { minutes = 30; hours = hours + 1; } // example reservation => 15:00 or 15:30 and nothing else
+    time = hours + ":" + minutes; // Converts the time into a value we can use later for our comparisons
+    return time;
+}
+// Used when creating a reservation, takes the value 'time' recieved and converts it into a number we can use when flitering through the reservation objects
+function CheckHourIn(time) {
+    console.log("CheckHourIn");
+    let reservationTime = time.split(":"); // example "15:30:00" =>  [ 15, 30, 00 ]
+    let hours = parseInt(reservationTime[0]); // example hours = 15
+    let minutes = parseInt(reservationTime[1]); // example minutes = 30
+    if (minutes < 30) { minutes = 0; } // Rounds down the minutes so that reservations are only made every half hour
     else if (minutes > 30) { minutes = 30; } // example reservation => 15:00 or 15:30 and nothing else
     if (minutes === 30) { hours = hours + 0.5; } // Converts the time into a value we can use later for our comparisons
     return hours;
@@ -88,6 +99,7 @@ function GetDateTime() {
 module.exports = {
     CheckPhone,
     CheckTime,
+    CheckHourIn,
     CheckSeats,
     Confirmation,
     GetDateTime,

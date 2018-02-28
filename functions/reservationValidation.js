@@ -16,9 +16,9 @@ function ValidateReservation(info, reservations, restaurants) {
     let restoName = parameters.name; // Needed to find if the desired restaurant exists in the restaurant object
     let restoCity = parameters['geo-city']; // Checks if restaurant exists in that area
     let date = parameters.date; // Needed for when we are going to find the number of available spots
-    let time = parameters.time.slice(0, -3); // Needed to figure out when the reservation will take place, would usually display HH:MM:SS, now simply displays HH:MM
+    let time = utilities.CheckTime(parameters.time.slice(0, -3)); // Needed to figure out when the reservation will take place, would usually display HH:MM:SS, now simply displays HH:MM
     let dateTime = date + "/" + time; // Needed to make sure a client does not make two reservations at the same time
-    let hourIn = utilities.CheckTime(parameters.time); // See the CheckTime function
+    let hourIn = utilities.CheckHourIn(parameters.time); // See the CheckHourIn function
     let hourOut = hourIn + 1; // Lets us store the hour the reservation should end
     let nbSeats = utilities.CheckSeats(parseInt(parameters['number-integer'])); // See the CheckSeats function
     if ((new Date(dateTime) - new Date()) <= 0) { // Gets the amount of time until the reservation takes place in milliseconds
@@ -54,8 +54,8 @@ function ValidateReservation(info, reservations, restaurants) {
     let restoFound = Object.keys(restaurants).filter(restoID => // Verifies if there is the desired Restaurant at the requested city
         restaurants[restoID].Name.toLowerCase() === restoName.toLowerCase() && // .toLowerCase is to prevent any possible errors
         restaurants[restoID].City.toLowerCase() === restoCity.toLowerCase() && // .toLowerCase is to prevent any possible errors
-        utilities.CheckTime(restaurants[restoID].OpenHours) > hourIn && // Checks if the resto is open when the reservation starts
-        utilities.CheckTime(restaurants[restoID].CloseHours) < hourOut); // Checks if the resto is closed when the reservation ends
+        utilities.CheckHourIn(restaurants[restoID].OpenHours) > hourIn && // Checks if the resto is open when the reservation starts
+        utilities.CheckHourIn(restaurants[restoID].CloseHours) < hourOut); // Checks if the resto is closed when the reservation ends
     if (restoFound.length < 1) {
         return {
             validation: false,
@@ -127,7 +127,7 @@ function ValidateUserReservation(info, reservations, restaurants) {
     let date = info.date; // We will need it later
     let time = info.time; // Would usually display HH:MM:SS, now simply displays HH:MM
     let dateTime = date + "/" + time; // Needed to make sure a client does not make two reservations at the same time
-    let hourIn = utilities.CheckTime(info.time); // See the CheckTime function
+    let hourIn = utilities.CheckHourIn(info.time); // See the CheckHourIn function
     let hourOut = hourIn + 1; // Lets us store the hour the reservation should end
     // Verifies if an object with that ID (phone number) exists, or else what's inside would cause an error
     // Verifies the client isn't trying to making two reservations at the same time, on the same day

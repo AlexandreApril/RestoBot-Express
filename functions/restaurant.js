@@ -2,6 +2,8 @@
     This is the page that manages everything related to the restaurant object information
 */
 
+const utilities = require("./utility.js");
+
 // Verifies if the restaurant already exists or not in the restaurant object by comparing the phone numbers
 // If none of the numbers match, adds the restaurant to the restaurant object
 // If one of the numbers match, the restaurant is not added
@@ -9,7 +11,7 @@
 // info => restaurant object
 function CreateRestoObject(info, restaurants) {
     console.log("CreateRestoObject");
-    if (restaurants[info.phoneNumber]) { return { validation: false, answer: "This restaurant has already been registered!" } }
+    if (restaurants[utilities.CheckPhone(info.phoneNumber)]) { return { validation: false, answer: "This restaurant has already been registered!" } }
     let conflitcs = Object.keys(restaurants).filter(phoneNumber =>
         restaurants[phoneNumber].Address === info.address &&
         restaurants[phoneNumber].Name === info.name);
@@ -26,7 +28,7 @@ function AddRestaurant(info, restaurants) {
         Name: info.name, // Name of the restaurant
         City: info.city, // Name of the city in which the restaurant is
         Address: info.address, // The address of the restaurant
-        Phone: info.phoneNumber, // The phone number of the restaurant
+        Phone: utilities.CheckPhone(info.phoneNumber), // The phone number of the restaurant
         OpenHours: info.openHours, // The hour when the restaurant opens
         CloseHours: info.closeHours, // The hour when the restaurant closes
         Nb2Seaters: info.nb2Seaters, // The number of 2 table seats available

@@ -13,7 +13,12 @@ function DisplayRestoReservations(info, reservations) {
     let arr = arr1.filter(clientNumber => // If there are, then it looks through all of the reservations that meet the requirements
         reservations[clientNumber][dateTime].restoNumber === info.restoPhone &&
         reservations[clientNumber][dateTime].isCancelled === false);
-    let obj = arr.map((x, i) => reservations[x]); // Puts every object found in a neat package for the frontend
+    let obj = arr.map((x, i) => reservations[x][dateTime]); // Puts every object found in a neat package for the frontend
+    console.log(info);
+    console.log(dateTime);
+    console.log(arr1);
+    console.log(arr);
+    console.log(obj);
     return obj;
 }
 // Displays a clients reservation once they ask RestoBot to display all reservations

@@ -13,7 +13,7 @@ function AddReservation(info, reservations, tempObj) {
     let date = parameters.date; // We will need it later
     let time = parameters.time.slice(0, -3); // Would usually display HH:MM:SS, now simply displays HH:MM
     let dateTime = date + "/" + time; // Needed to make sure a client does not make two reservations at the same time
-    let hourIn = utilities.CheckTime(parameters.time); // See the CheckTime function
+    let hourIn = utilities.CheckHourIn(parameters.time); // See the CheckHourIn function
     let hourOut = hourIn + 1; // Lets us store the hour the reservation should end
     tempObj[dateTime] = {
         client: parameters['given-name'], // The client's name
@@ -49,7 +49,7 @@ function AddUserReservation(info, reservations, tempObj) {
     let date = info.date; // We will need it later
     let time = info.time; // Would usually display HH:MM:SS, now simply displays HH:MM
     let dateTime = date + "/" + time; // Needed to make sure a client does not make two reservations at the same time
-    let hourIn = utilities.CheckTime(time); // See the CheckTime function
+    let hourIn = utilities.CheckHourIn(time); // See the CheckHourIn function
     let hourOut = hourIn + 1; // Lets us store the hour the reservation should end
     tempObj[dateTime] = {
         client: info.clientName, // The client's name
