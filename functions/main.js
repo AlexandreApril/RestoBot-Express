@@ -48,7 +48,7 @@ function RestaurantLogIn(info) {
 
 function UserCreateReservation(info) {
   console.log("UserCreateReservation");
-  let confirmation = reservationValidate.ValidateUserReservation(info, reservations);
+  let confirmation = reservationValidate.ValidateUserReservation(info, reservations, restaurants);
   if (confirmation.validation) {
     let makeReservation = reservation.AddUserReservation(info, reservations);
     fs.writeFileSync("./JSONobj/reservations.json", JSON.stringify(makeReservation.obj));

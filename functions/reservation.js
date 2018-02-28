@@ -44,7 +44,7 @@ function AddReservation(info, reservations) {
 function AddUserReservation(info, reservations) {
     console.log("AddUserReservation");
     let nbOfPeople = info.nbPeople === "1" ? "1 person" : info.nbPeople + " people"; // Not usefull, just good grammar
-    let date = info.date;
+    let date = info.date; // We will need it later
     let time = info.time.slice(0, -3); // Would usually display HH:MM:SS, now simply displays HH:MM
     let dateTime = date + "/" + time; // Needed to make sure a client does not make two reservations at the same time
     let hourIn = utilities.CheckTime(time); // See the CheckTime function

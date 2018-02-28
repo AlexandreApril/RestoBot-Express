@@ -117,7 +117,7 @@ function ValidateReservation(info, reservations, restaurants) {
     }
 }
 
-function ValidateUserReservation(info, reservations) {
+function ValidateUserReservation(info, reservations, restaurants) {
     console.log("ValidateUserReservation");
     let clientNumber = info.clientNumber; // The clients phone number
     let restoNumber = info.restoNumber; // The restaurants phone number
@@ -125,7 +125,7 @@ function ValidateUserReservation(info, reservations) {
     let date = info.date; // We will need it later
     let time = info.time.slice(0, -3); // Would usually display HH:MM:SS, now simply displays HH:MM
     let dateTime = date + "/" + time; // Needed to make sure a client does not make two reservations at the same time
-    let hourIn = utilities.CheckTime(parameters.time); // See the CheckTime function
+    let hourIn = utilities.CheckTime(info.time); // See the CheckTime function
     let hourOut = hourIn + 1; // Lets us store the hour the reservation should end
     // Verifies if an object with that ID (phone number) exists, or else what's inside would cause an error
     // Verifies the client isn't trying to making two reservations at the same time, on the same day
