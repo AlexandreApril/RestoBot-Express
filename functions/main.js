@@ -51,7 +51,7 @@ function UserCreateReservation(info) {
   let confirmation = reservationValidate.ValidateUserReservation(info, reservations, restaurants);
   if (confirmation.validation) {
     let makeReservation = reservation.AddUserReservation(info, reservations);
-    fs.writeFileSync("./JSONobj/reservations.json", JSON.stringify(makeReservation.obj));
+    fs.writeFileSync("./functions/JSONobj/reservations.json", JSON.stringify(makeReservation.obj));
     return makeReservation.answer;
   }
   return confirmation.answer;
