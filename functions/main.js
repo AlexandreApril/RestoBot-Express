@@ -5,13 +5,21 @@ const deleteRes = require("./delete.js");
 const settings = require("./settings.js");
 const restaurant = require("./restaurant.js");
 const reservation = require("./reservation.js");
-const reservationValidate = require("./reservationValidation");
+const reservationValidate = require("./reservationValidation.js");
 const utilities = require("./utility.js");
 
+let tempClientObj = {}; // Object containing all the info about the temp Client reservations
+let tempRestoObj = {}; // Object containing all the info about the temp Resto reservations
 let reservations = {}; // Object containing all the info about the reservations
 let restaurants = {}; // Object containing all the info about the restaurants
 let passwords = {}; // Object containing all the info about the accounts
 
+try { // Verifies if a list of temp Client reservations already exists
+  tempClientObj = JSON.parse(fs.readFileSync("./functions/JSONobj/subClientReservations.json"));
+} catch (err) { }
+try { // Verifies if a list of temp Resto reservations already exists
+  tempRestoObj = JSON.parse(fs.readFileSync("./functions/JSONobj/subRestoReservations.json"));
+} catch (err) { }
 try { // Verifies if a list of reservations already exists
   reservations = JSON.parse(fs.readFileSync("./functions/JSONobj/reservations.json"));
 } catch (err) { }
@@ -50,7 +58,8 @@ function UserCreateReservation(info) {
   console.log("UserCreateReservation");
   let confirmation = reservationValidate.ValidateUserReservation(info, reservations, restaurants);
   if (confirmation.validation) {
-    let makeReservation = reservation.AddUserReservation(info, reservations);
+    let makeReservation = reservation.AddUserReservation(info, reservations, tempRestoObj);
+    fs.writeFileSync("./functions/JSONobj/subRestoReservations.json", JSON.stringify(makeReservation.tempObj));
     fs.writeFileSync("./functions/JSONobj/reservations.json", JSON.stringify(makeReservation.obj));
     return makeReservation.answer;
   }
@@ -66,7 +75,8 @@ function CreateReservation(info) {
     // Client confirms if they want to make the reservation or not
     case 'Reservation-Create.Reservation-Confirmation':
       console.log("Reservation-Create.Reservation-Confirmation");
-      let makeReservation = reservation.AddReservation(info, reservations);
+      let makeReservation = reservation.AddReservation(info, reservations, tempClientObj);
+      fs.writeFileSync("./functions/JSONobj/subClientReservations.json", JSON.stringify(makeReservation.tempObj));
       fs.writeFileSync("./functions/JSONobj/reservations.json", JSON.stringify(makeReservation.obj));
       return { "speech": makeReservation.answer };
     case 'Reservation-Create.Reservation-Options':

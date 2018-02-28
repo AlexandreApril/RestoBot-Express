@@ -41,8 +41,9 @@ function ValidateReservation(info, reservations, restaurants) {
     if (reservations[clientNumber]) {
         let avaiable = Object.keys(reservations[clientNumber]).filter(DateTime =>
             reservations[clientNumber][DateTime].date === date &&
-            (hourIn <= reservations[clientNumber][DateTime].hourIn < hourOut ||
-                hourIn < reservations[clientNumber][DateTime].hourOut <= hourOut));
+            (reservations[clientNumber][DateTime].hourIn + 0.5 === hourIn ||
+                reservations[clientNumber][DateTime].hourIn === hourIn ||
+                reservations[clientNumber][DateTime].hourIn - 0.5 === hourIn));
         if (avaiable.length >= 1) {
             return {
                 validation: false,
@@ -67,8 +68,9 @@ function ValidateReservation(info, reservations, restaurants) {
             reservations[ID][DateTime].city === restoCity && // Finds reservations at the same city
             reservations[ID][DateTime].nbSeats === nbSeats && // Finds reservations that require the same amount of seats
             reservations[ID][DateTime].date === date && // Finds every reservation on the same day as the clients
-            (hourIn <= reservations[ID][DateTime].hourIn < hourOut || // Finds every reservation that would begin during the clients reservation
-                hourIn < reservations[ID][DateTime].hourOut <= hourOut))); // Finds every reservation that would end during the clients reservation
+            ((reservations[ID][DateTime].hourIn + 0.5 === hourIn ||
+                reservations[ID][DateTime].hourIn === hourIn ||
+                reservations[ID][DateTime].hourIn - 0.5 === hourIn)))); // Finds every reservation that would end during the clients reservation
     let seatsNeeded; // Variable must be declared here
     switch (nbSeats) { // Allows us to determine which 'Nb#Seaters' we need to use when looking for any available reservations
         case 2: seatsNeeded = 'Nb2Seaters'; break; // If nbSeats is 2, we need to look in the Nb2Seaters property
@@ -124,7 +126,7 @@ function ValidateUserReservation(info, reservations, restaurants) {
     let restoNumber = info.restoNumber; // The restaurants phone number
     let nbSeats = utilities.CheckSeats(info.nbOfPeople); // See the CheckSeats function
     let date = info.date; // We will need it later
-    let time = info.time.slice(0, -3); // Would usually display HH:MM:SS, now simply displays HH:MM
+    let time = info.time; // Would usually display HH:MM:SS, now simply displays HH:MM
     let dateTime = date + "/" + time; // Needed to make sure a client does not make two reservations at the same time
     let hourIn = utilities.CheckTime(info.time); // See the CheckTime function
     let hourOut = hourIn + 1; // Lets us store the hour the reservation should end
@@ -135,8 +137,9 @@ function ValidateUserReservation(info, reservations, restaurants) {
     if (reservations[clientNumber]) {
         let avaiable = Object.keys(reservations[clientNumber]).filter(DateTime =>
             reservations[clientNumber][DateTime].date === date &&
-            (hourIn <= reservations[clientNumber][DateTime].hourIn < hourOut ||
-                hourIn < reservations[clientNumber][DateTime].hourOut <= hourOut));
+            (reservations[clientNumber][DateTime].hourIn + 0.5 === hourIn ||
+                reservations[clientNumber][DateTime].hourIn === hourIn ||
+                reservations[clientNumber][DateTime].hourIn - 0.5 === hourIn));
         if (avaiable.length !== 0) {
             return {
                 validation: false,
@@ -149,8 +152,9 @@ function ValidateUserReservation(info, reservations, restaurants) {
             reservations[ID][DateTime].restoNumber === info.restoNumber &&
             reservations[ID][DateTime].nbSeats === nbSeats && // Finds reservations that require the same amount of seats
             reservations[ID][DateTime].date === date && // Finds every reservation on the same day as the clients
-            (hourIn <= reservations[ID][DateTime].hourIn < hourOut || // Finds every reservation that would begin during the clients reservation
-                hourIn < reservations[ID][DateTime].hourOut <= hourOut))); // Finds every reservation that would end during the clients reservation
+            (reservations[ID][DateTime].hourIn + 0.5 === hourIn ||
+                reservations[ID][DateTime].hourIn === hourIn ||
+                reservations[ID][DateTime].hourIn - 0.5 === hourIn))); // Finds every reservation that would end during the clients reservation
     if (conflictingReservations.length === 0) { return { validation: true } }
     let seatsNeeded; // Variable must be declared here
     switch (nbSeats) { // Allows us to determine which 'Nb#Seaters' we need to use when looking for any available reservations

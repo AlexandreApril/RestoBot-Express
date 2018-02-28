@@ -4,7 +4,7 @@
 const utilities = require("./utility.js");
 
 // Adds a reservation to the reservation object using the clients phone number as the unique ID
-function AddReservation(info, reservations) {
+function AddReservation(info, reservations, tempObj) {
     console.log("AddReservation");
     if (info.originalRequest.data.Body.toLowerCase() === "no") { return "Reservation canceled."; }
     let clientNumber = info.originalRequest.data.From.slice(1); // This is where the clients phone number is stored when RestoBot is messaged, this will be used as the reservations unique ID if the reservation is valid
@@ -15,7 +15,6 @@ function AddReservation(info, reservations) {
     let dateTime = date + "/" + time; // Needed to make sure a client does not make two reservations at the same time
     let hourIn = utilities.CheckTime(parameters.time); // See the CheckTime function
     let hourOut = hourIn + 1; // Lets us store the hour the reservation should end
-    let tempObj = {};
     tempObj[dateTime] = {
         client: parameters['given-name'], // The client's name
         clientNumber, // The clients phone number
@@ -36,20 +35,21 @@ function AddReservation(info, reservations) {
     setTimeout(() => reservations[clientNumber][dateTime].isOver = true, new Date(dateTime) - new Date());
     return { // Returns the confirmation message once everything is made
         obj: reservations,
+        tempObj: tempObj,
         answer: "Successfully created a reservation under the name of " + parameters['given-name'] + " at " + parameters['name'] +
             " for " + nbOfPeople + " in " + parameters['geo-city'] + " on " + parameters.date + " at " + time + "!"
     }
 }
 
-function AddUserReservation(info, reservations) {
+function AddUserReservation(info, reservations, tempObj) {
     console.log("AddUserReservation");
-    let nbOfPeople = info.nbPeople === "1" ? "1 person" : info.nbPeople + " people"; // Not usefull, just good grammar
+    let nbOfPeople = info.nbOfPeople === "1" ? "1 person" : info.nbOfPeople + " people"; // Not usefull, just good grammar
+    let nbSeats = utilities.CheckSeats(info.nbOfPeople); // See the CheckSeats function
     let date = info.date; // We will need it later
-    let time = info.time.slice(0, -3); // Would usually display HH:MM:SS, now simply displays HH:MM
+    let time = info.time; // Would usually display HH:MM:SS, now simply displays HH:MM
     let dateTime = date + "/" + time; // Needed to make sure a client does not make two reservations at the same time
     let hourIn = utilities.CheckTime(time); // See the CheckTime function
     let hourOut = hourIn + 1; // Lets us store the hour the reservation should end
-    let tempObj = {};
     tempObj[dateTime] = {
         client: info.clientName, // The client's name
         clientNumber: info.clientNumber, // The clients phone number
@@ -58,7 +58,7 @@ function AddUserReservation(info, reservations) {
         city: info.city, // The city in which the restaurant is
         address: info.address, // The restaurants address
         nbOfPeople, // The number of people who will be present
-        nbSeats: info.nbSeats, // The number of seats that will be taken
+        nbSeats, // The number of seats that will be taken
         date, // The date the reservation will take place
         time, // The time the reservation will take place
         hourIn, // The time the reservation begins
@@ -70,6 +70,7 @@ function AddUserReservation(info, reservations) {
     setTimeout(() => reservations[info.clientNumber][dateTime].isOver = true, new Date(dateTime) - new Date());
     return {
         obj: reservations,
+        tempObj: tempObj,
         answer: "Reservation completed successfully!"
     }
 }
