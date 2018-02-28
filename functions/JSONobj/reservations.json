@@ -89,8 +89,98 @@
             "restoNumber": "450-345-1234",
             "address": "345 rue test",
             "city": "Montréal",
-            "nbOfPeople": "3 people",
-            "nbSeats": 4,
+            "nbOfPeople": "5 people",
+            "nbSeats": 6,
+            "date": "2018-12-30",
+            "time": "12:00",
+            "hourIn": 12,
+            "hourOut": 12,
+            "isOver": false,
+            "isCancelled": false
+        }
+    },
+    "12345678900": {
+        "2018-12-30/12:00": {
+            "client": "Kirby",
+            "phoneNumber": "12345678900",
+            "restaurant": "McDonald's",
+            "restoNumber": "450-345-1234",
+            "address": "345 rue test",
+            "city": "Montréal",
+            "nbOfPeople": "6 people",
+            "nbSeats": 6,
+            "date": "2018-12-30",
+            "time": "12:00",
+            "hourIn": 12,
+            "hourOut": 12,
+            "isOver": false,
+            "isCancelled": false
+        }
+    },
+    "12345678901": {
+        "2018-12-30/12:00": {
+            "client": "Kirby",
+            "phoneNumber": "12345678901",
+            "restaurant": "McDonald's",
+            "restoNumber": "450-345-1234",
+            "address": "345 rue test",
+            "city": "Montréal",
+            "nbOfPeople": "6 people",
+            "nbSeats": 6,
+            "date": "2018-12-30",
+            "time": "12:00",
+            "hourIn": 12,
+            "hourOut": 12,
+            "isOver": false,
+            "isCancelled": false
+        }
+    },
+    "12345678902": {
+        "2018-12-30/12:00": {
+            "client": "Kirby",
+            "phoneNumber": "12345678902",
+            "restaurant": "McDonald's",
+            "restoNumber": "450-345-1234",
+            "address": "345 rue test",
+            "city": "Montréal",
+            "nbOfPeople": "5 people",
+            "nbSeats": 6,
+            "date": "2018-12-30",
+            "time": "12:00",
+            "hourIn": 12,
+            "hourOut": 12,
+            "isOver": false,
+            "isCancelled": false
+        }
+    },
+    "12345678903": {
+        "2018-12-30/12:00": {
+            "client": "Kirby",
+            "phoneNumber": "12345678903",
+            "restaurant": "McDonald's",
+            "restoNumber": "450-345-1234",
+            "address": "345 rue test",
+            "city": "Montréal",
+            "nbOfPeople": "6 people",
+            "nbSeats": 6,
+            "date": "2018-12-30",
+            "time": "12:00",
+            "hourIn": 12,
+            "hourOut": 12,
+            "isOver": false,
+            "isCancelled": false
+        }
+    },
+    "12345678904": {
+        "2018-12-30/12:00": {
+            "client": "Kirby",
+            "phoneNumber": "12345678904",
+            "restaurant": "McDonald's",
+            "restoNumber": "450-345-1234",
+            "address": "345 rue test",
+            "city": "Montréal",
+            "nbOfPeople": "2 people",
+            "nbSeats": 2,
             "date": "2018-12-30",
             "time": "12:00",
             "hourIn": 12,

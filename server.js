@@ -44,7 +44,7 @@ app.post("/displayReservations", (req, res) => {
   return res.send(JSON.stringify(main.DisplayAllResto(json)));
 });
 // Reservations confirmed by the restaurant
-app.get("/userConfirm", (req, res) => {
+app.get("/userCreate", (req, res) => {
   let json = JSON.parse(req.body);
   return res.send(JSON.stringify(main.UserCreateReservation(json)));
 });
