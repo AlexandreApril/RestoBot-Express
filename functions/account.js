@@ -16,9 +16,9 @@ function ValidateRegistration(signupInfo, accountObj) {
 
 // Verifies if the username and password are valid during user login
 function ValidateLogIn(loginInfo, accountObj) {
-    console.log("ValidateLogIn");
-    if (accountObj[loginInfo.username] === loginInfo.password) { return "Login successful!" } // Verifies if the password is correct 
-    else { return "Your username or password are incorrect!" } // If the password if incorrect, the login request fails
+    console.log("ValidateLogIn"); console.log("ValidateLogIn");
+    if (accountObj[loginInfo.username] === loginInfo.password) { return { validation: true, answer: "Login successful!" } } // Verifies if the password is correct 
+    else { return { validation: false, answer: "Your username or password are incorrect!" } } // If the password if incorrect, the login request fails
 }
 
 module.exports = {

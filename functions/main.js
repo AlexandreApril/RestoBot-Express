@@ -41,7 +41,10 @@ function RegisterRestaurant(info) {
 }
 
 // Verifies if the username and password are valid during user login
-function RestaurantLogIn(info) { console.log("RestaurantLogIn"); return account.ValidateLogIn(info, passwords); }
+function RestaurantLogIn(info) {
+  console.log("RestaurantLogIn");
+  return account.ValidateLogIn(info, passwords);
+}
 
 function UserCreateReservation(info) {
   console.log("UserCreateReservation");
@@ -49,7 +52,7 @@ function UserCreateReservation(info) {
   if (confirmation.validation) {
     let makeReservation = reservation.AddUserReservation(info, reservations);
     fs.writeFileSync("./JSONobj/reservations.json", JSON.stringify(makeReservation.obj));
-    return { "speech": makeReservation.answer }
+    return makeReservation.answer;
   }
   return confirmation.answer;
 }
@@ -71,11 +74,7 @@ function CreateReservation(info) {
       let choice = { 0: info.result.contexts.filter(context => context.name === "reservationoption")[0].parameters.choice[info.result.parameters['number-integer'] - 1] }
       return {
         "speech": "Confirm reservation?" + utilities.Confirmation(choice, 1, false),
-        contextOut: [{
-          "name": "reservationconfirmation",
-          parameters: { choice },
-          "lifespan": 1
-        }]
+        contextOut: [{ "name": "reservationconfirmation", parameters: { choice }, "lifespan": 1 }]
       }
     case 'Reservation-Display':
       console.log("Reservation-Display");
@@ -94,20 +93,23 @@ function CreateReservation(info) {
 }
 
 // Recieves resto number, date and time
-function DisplayAllResto(info) { console.log("DisplayAllResto"); return display.DisplayRestoReservations(info, reservations); }
+function DisplayAllResto(info) {
+  console.log("DisplayAllResto");
+  return display.DisplayRestoReservations(info, reservations);
+}
 
 function ClearAll(info) {
   console.log("ClearAll");
   let clearReservations = deleteRes.CancelAllReservations(info, reservations);
   if (clearReservations.validation) { fs.writeFileSync("./functions/JSONobj/reservations.json", JSON.stringify(clearReservations.obj)); }
-  return { "speech": clearReservations.answer }
+  return clearReservations.answer;
 }
 
 function CancelReservation(info) {
   console.log("CancelReservation");
   let cancelReservation = deleteRes.CancelRestoReservations(info, reservations);
   fs.writeFileSync("./functions/JSONobj/reservations.json", JSON.stringify(cancelReservation.obj));
-  return { "speech": cancelReservation.answer }
+  return cancelReservation.answer;
 }
 
 function ChangeSettings(info) {

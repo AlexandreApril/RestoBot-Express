@@ -7,12 +7,7 @@ try {
   const key = fs.readFileSync('/etc/letsencrypt/live/alexandreapril.com/privkey.pem');
   const cert = fs.readFileSync('/etc/letsencrypt/live/alexandreapril.com/fullchain.pem');
   const ca = fs.readFileSync('/etc/letsencrypt/live/alexandreapril.com/chain.pem');
-
-  const options = {
-    key: key,
-    cert: cert,
-    ca: ca
-  };
+  const options = { key: key, cert: cert, ca: ca };
   const https = require('https');
 } catch (err) { }
 
