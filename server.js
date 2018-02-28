@@ -12,7 +12,6 @@ try {
 } catch (err) { }
 
 app.use(bodyParser.raw({ type: "*/*" }));
-
 // Let's a restaurant create an account
 app.post("/signup", (req, res) => {
   let json = JSON.parse(req.body);
@@ -51,10 +50,9 @@ app.post("/userCreate", (req, res) => {
 // Takes the text the user sends to RestoBot and sends RestoBots response
 app.post("/message", (req, res) => {
   let json = JSON.parse(req.body);
-  return res.send(JSON.stringify(main.CreateReservation(json)));
+  return res.send(JSON.stringify(main.CommunicateWithBot(json)));
 });
-
-app.listen(3000);
 try {
   https.createServer(options, app).listen(443);
 } catch (err) { }
+app.listen(3000);

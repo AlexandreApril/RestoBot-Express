@@ -69,8 +69,8 @@ function UserCreateReservation(info) {
 // Adds a reservation to the reservation object using the clients phone number as the unique ID
 // Saves the reservation object in a file
 // Returns the confirmation message once everything is made
-function CreateReservation(info) {
-  console.log("CreateReservation");
+function CommunicateWithBot(info) {
+  console.log("CommunicateWithBot");
   switch (info.result.action) {
     // Client confirms if they want to make the reservation or not
     case 'Reservation-Create.Reservation-Confirmation':
@@ -130,7 +130,7 @@ function ChangeSettings(info) {
 }
 
 module.exports = {
-  CreateReservation,
+  CommunicateWithBot,
   RegisterRestaurant,
   RestaurantLogIn,
   DisplayAllResto,
