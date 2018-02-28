@@ -45,7 +45,7 @@ function AddUserReservation(info, reservations, tempObj) {
     console.log("AddUserReservation");
     let clientNumber = utilities.CheckPhone(info.clientNumber);
     let nbOfPeople = info.nbOfPeople === "1" ? "1 person" : info.nbOfPeople + " people"; // Not usefull, just good grammar
-    let nbSeats = utilities.CheckSeats(info.nbOfPeople); // See the CheckSeats function
+    let nbSeats = utilities.CheckSeats(parseInt(info.nbOfPeople)); // See the CheckSeats function
     let date = info.date; // We will need it later
     let time = info.time; // Would usually display HH:MM:SS, now simply displays HH:MM
     let dateTime = date + "/" + time; // Needed to make sure a client does not make two reservations at the same time

@@ -261,6 +261,19 @@
             "hourOut": 15,
             "isOver": false,
             "isCancelled": false
+        },
+        "2018-02-23/12:00": {
+            "clientNumber": "1-134-444-4444",
+            "restoNumber": "450-345-1234",
+            "city": "Montreal",
+            "nbOfPeople": "3 people",
+            "nbSeats": 4,
+            "date": "2018-02-23",
+            "time": "12:00",
+            "hourIn": 12,
+            "hourOut": 13,
+            "isOver": false,
+            "isCancelled": false
         }
     }
 }

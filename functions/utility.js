@@ -2,7 +2,6 @@
     This file contains every utility function we might need
 */
 
-//
 function CheckPhone(phone) {
     console.log("CheckPhone");
     if (phone.length === 11) {
