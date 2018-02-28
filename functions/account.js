@@ -5,19 +5,23 @@
 // Verifies if the username is taken or not
 // signupInfo => information of the account
 // accountInfo => passwords object
-function ValidateRegistration(signupInfo, accountObj) {
+function ValidateRegistration(info, obj) {
     console.log("ValidateRegistration");
-    if (!accountObj[signupInfo.username]) {
-        accountObj[signupInfo.username] = signupInfo.password;
-        return { validation: true, obj: accountObj };
+    if (!obj[info.username]) {
+        obj[info.username] = info.password;
+        return { validation: true, obj: obj };
     }
     else { return { validation: false, answer: "This username has already been taken!" } }
 }
 
 // Verifies if the username and password are valid during user login
-function ValidateLogIn(loginInfo, accountObj) {
-    console.log("ValidateLogIn"); console.log("ValidateLogIn");
-    if (accountObj[loginInfo.username] === loginInfo.password) { return { validation: true, answer: "Login successful!" } } // Verifies if the password is correct 
+function ValidateLogIn(info, passwords, restaurants) {
+    console.log("ValidateLogIn");
+    if (passwords[info.username] === info.password) {
+        let arr = Object.keys(restaurants).filter(ID =>
+            restaurants[ID].Username === info.username);
+        return { validation: true, answer: "Login successful!", obj: restaurants[arr[0]] }
+    } // Verifies if the password is correct 
     else { return { validation: false, answer: "Your username or password are incorrect!" } } // If the password if incorrect, the login request fails
 }
 

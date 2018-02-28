@@ -51,7 +51,7 @@ function RegisterRestaurant(info) {
 // Verifies if the username and password are valid during user login
 function RestaurantLogIn(info) {
   console.log("RestaurantLogIn");
-  return account.ValidateLogIn(info, passwords);
+  return account.ValidateLogIn(info, passwords, restaurants);
 }
 
 function UserCreateReservation(info) {
