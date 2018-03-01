@@ -54,8 +54,8 @@ function ValidateReservation(info, reservations, restaurants) {
     let restoFound = Object.keys(restaurants).filter(restoID => // Verifies if there is the desired Restaurant at the requested city
         restaurants[restoID].Name.toLowerCase() === restoName.toLowerCase() && // .toLowerCase is to prevent any possible errors
         restaurants[restoID].City.toLowerCase() === restoCity.toLowerCase());// && // .toLowerCase is to prevent any possible errors
-        // utilities.CheckHourIn(restaurants[restoID].OpenHours) > hourIn && // Checks if the resto is open when the reservation starts
-        // utilities.CheckHourIn(restaurants[restoID].OpenHours) < hourOut); // Checks if the resto is closed when the reservation ends
+    // utilities.CheckHourIn(restaurants[restoID].OpenHours) > hourIn && // Checks if the resto is open when the reservation starts
+    // utilities.CheckHourIn(restaurants[restoID].OpenHours) < hourOut); // Checks if the resto is closed when the reservation ends
     if (restoFound.length > 1) {
         return {
             validation: false,
@@ -81,7 +81,7 @@ function ValidateReservation(info, reservations, restaurants) {
     }
     let restoAvailable = restoFound.filter(restoID => // Finds if there are any seats left at the time the clients reservation would take place
         restaurants[restoID][seatsNeeded] > conflictingReservations.length);
-    if (restoAvailable.length === 0) { // If no seats are avaiable, returns to the client
+    if (restoAvailable.length < 1) { // If no seats are avaiable, returns to the client
         return { validation: false, answer: "There are no seats available at the desired time." }
     }
     else {
