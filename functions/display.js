@@ -14,10 +14,6 @@ function DisplayRestoReservations(info, reservations) {
         reservations[clientNumber][dateTime].restoNumber === info.restoPhone &&
         reservations[clientNumber][dateTime].isCancelled === false);
     let obj = arr.map((x, i) => reservations[x][dateTime]); // Puts every object found in a neat package for the frontend
-    console.log(info);
-    console.log(dateTime);
-    console.log(arr1);
-    console.log(arr);
     console.log(obj);
     return obj;
 }

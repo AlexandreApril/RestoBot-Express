@@ -138,7 +138,7 @@ function ValidateUserReservation(info, reservations, restaurants) {
             (reservations[clientNumber][DateTime].hourIn + 0.5 === hourIn ||
                 reservations[clientNumber][DateTime].hourIn === hourIn ||
                 reservations[clientNumber][DateTime].hourIn - 0.5 === hourIn));
-        if (avaiable.length !== 0) {
+        if (avaiable.length > 0) {
             return {
                 validation: false,
                 answer: "This client already has a reservation at this time!"

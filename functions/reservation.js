@@ -43,6 +43,7 @@ function AddReservation(info, reservations, tempObj) {
 
 function AddUserReservation(info, reservations, tempObj) {
     console.log("AddUserReservation");
+    console.log(info);
     let clientNumber = utilities.CheckPhone(info.clientNumber);
     let nbOfPeople = info.nbOfPeople === "1" ? "1 person" : info.nbOfPeople + " people"; // Not usefull, just good grammar
     let nbSeats = utilities.CheckSeats(parseInt(info.nbOfPeople)); // See the CheckSeats function
@@ -69,7 +70,7 @@ function AddUserReservation(info, reservations, tempObj) {
     }
     reservations[clientNumber] = tempObj;
     setTimeout(() => reservations[clientNumber][dateTime].isOver = true, new Date(dateTime) - new Date());
-    console.log(reservations[clientNumber]);
+    console.log(reservations[clientNumber][dateTime]);
     return {
         obj: reservations,
         tempObj: tempObj,
