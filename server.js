@@ -3,13 +3,13 @@ const main = require("./functions/main.js");
 const express = require('express');
 const app = express();
 const bodyParser = require("body-parser");
-const key = fs.readFileSync('/etc/letsencrypt/live/alexandreapril.com/privkey.pem');
-const cert = fs.readFileSync('/etc/letsencrypt/live/alexandreapril.com/fullchain.pem');
-const ca = fs.readFileSync('/etc/letsencrypt/live/alexandreapril.com/chain.pem');
-const options = { key: key, cert: cert, ca: ca };
-const https = require('https');
+// const key = fs.readFileSync('/etc/letsencrypt/live/alexandreapril.com/privkey.pem');
+// const cert = fs.readFileSync('/etc/letsencrypt/live/alexandreapril.com/fullchain.pem');
+// const ca = fs.readFileSync('/etc/letsencrypt/live/alexandreapril.com/chain.pem');
+// const options = { key: key, cert: cert, ca: ca };
+// const https = require('https');
 app.use(bodyParser.raw({ type: "*/*" }));
-app.get("/HomePage", (req, res) => { res.send(req); });
+app.get("/", (req, res) => { res.send(req); });
 // Let's a restaurant create an account
 app.post("/signup", (req, res) => {
   let json = JSON.parse(req.body);
@@ -51,4 +51,4 @@ app.post("/message", (req, res) => {
   return res.send(JSON.stringify(main.CommunicateWithBot(json)));
 });
 app.listen(4000);
-https.createServer(options, app).listen(443);
+// https.createServer(options, app).listen(443);
