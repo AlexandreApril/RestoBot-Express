@@ -2,14 +2,13 @@ const main = require("./functions/main.js");
 const express = require('express');
 const app = express();
 const bodyParser = require("body-parser");
-try {
-  const forceSsl = require('express-force-ssl');
-  const key = fs.readFileSync('/etc/letsencrypt/live/alexandreapril.com/privkey.pem');
-  const cert = fs.readFileSync('/etc/letsencrypt/live/alexandreapril.com/fullchain.pem');
-  const ca = fs.readFileSync('/etc/letsencrypt/live/alexandreapril.com/chain.pem');
-  const options = { key: key, cert: cert, ca: ca };
-  const https = require('https');
-} catch (err) { }
+
+const key = fs.readFileSync('/etc/letsencrypt/live/alexandreapril.com/privkey.pem');
+const cert = fs.readFileSync('/etc/letsencrypt/live/alexandreapril.com/fullchain.pem');
+const ca = fs.readFileSync('/etc/letsencrypt/live/alexandreapril.com/chain.pem');
+const options = { key: key, cert: cert, ca: ca };
+const https = require('https');
+
 app.get("/", (req, res) => {
   res.send("hello");
 });
@@ -55,6 +54,5 @@ app.post("/message", (req, res) => {
   return res.send(JSON.stringify(main.CommunicateWithBot(json)));
 });
 app.listen(3000);
-try {
-  https.createServer(options, app).listen(443);
-} catch (err) { }
+
+https.createServer(options, app).listen(443);
