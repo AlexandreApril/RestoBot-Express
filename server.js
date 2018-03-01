@@ -54,7 +54,7 @@ app.post("/message", (req, res) => {
   let json = JSON.parse(req.body);
   return res.send(JSON.stringify(main.CommunicateWithBot(json)));
 });
+app.listen(3000);
 try {
   https.createServer(options, app).listen(443);
 } catch (err) { }
-app.listen(3000);
