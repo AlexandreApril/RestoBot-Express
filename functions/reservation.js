@@ -69,6 +69,7 @@ function AddUserReservation(info, reservations, tempObj) {
     }
     reservations[clientNumber] = tempObj;
     setTimeout(() => reservations[clientNumber][dateTime].isOver = true, new Date(dateTime) - new Date());
+    console.log(reservations);
     return {
         obj: reservations,
         tempObj: tempObj,
