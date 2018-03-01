@@ -53,9 +53,9 @@ function ValidateReservation(info, reservations, restaurants) {
     }
     let restoFound = Object.keys(restaurants).filter(restoID => // Verifies if there is the desired Restaurant at the requested city
         restaurants[restoID].Name.toLowerCase() === restoName.toLowerCase() && // .toLowerCase is to prevent any possible errors
-        restaurants[restoID].City.toLowerCase() === restoCity.toLowerCase() && // .toLowerCase is to prevent any possible errors
-        utilities.CheckHourIn(restaurants[restoID].OpenHours) > hourIn && // Checks if the resto is open when the reservation starts
-        utilities.CheckHourIn(restaurants[restoID].OpenHours) < hourOut); // Checks if the resto is closed when the reservation ends
+        restaurants[restoID].City.toLowerCase() === restoCity.toLowerCase());// && // .toLowerCase is to prevent any possible errors
+        // utilities.CheckHourIn(restaurants[restoID].OpenHours) > hourIn && // Checks if the resto is open when the reservation starts
+        // utilities.CheckHourIn(restaurants[restoID].OpenHours) < hourOut); // Checks if the resto is closed when the reservation ends
     if (restoFound.length < 1) {
         return {
             validation: false,
