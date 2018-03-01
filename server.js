@@ -9,7 +9,7 @@ const ca = fs.readFileSync('/etc/letsencrypt/live/alexandreapril.com/chain.pem')
 const options = { key: key, cert: cert, ca: ca };
 const https = require('https');
 app.use(bodyParser.raw({ type: "*/*" }));
-app.get("/", (req, res) => { res.send("hello"); });
+app.get("/HomePage", (req, res) => { res.send(req); });
 // Let's a restaurant create an account
 app.post("/signup", (req, res) => {
   let json = JSON.parse(req.body);
