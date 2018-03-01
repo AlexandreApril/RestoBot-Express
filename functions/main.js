@@ -97,7 +97,7 @@ function CommunicateWithBot(info) {
       return { "speech": deleteReservation.answer }
     default:
       console.log("default");
-      let confirmation = reservationValidate.ValidateReservation(info, reservations, restaurants);
+      let confirmation = reservation.AddReservation(info, reservations, tempClientObj);//reservationValidate.ValidateReservation(info, reservations, restaurants);
       if (confirmation.validation === true) { return { "speech": confirmation.answer, contextOut: confirmation.contextOut } }
       else { return { "speech": confirmation.answer, contextOut: confirmation.contextOut } }
   }
