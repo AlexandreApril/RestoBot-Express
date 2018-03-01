@@ -56,8 +56,6 @@ function RestaurantLogIn(info) {
 
 function UserCreateReservation(info) {
   console.log(info);
-  console.log(reservation);
-  console.log(tempRestoObj);
   console.log("UserCreateReservation");
   let confirmation = reservationValidate.ValidateUserReservation(info, reservations, restaurants);
   if (confirmation.validation) {
