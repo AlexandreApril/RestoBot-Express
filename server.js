@@ -10,7 +10,9 @@ try {
   const options = { key: key, cert: cert, ca: ca };
   const https = require('https');
 } catch (err) { }
-
+app.get("/", (req, res) => {
+  res.send("hello");
+});
 app.use(bodyParser.raw({ type: "*/*" }));
 // Let's a restaurant create an account
 app.post("/signup", (req, res) => {
