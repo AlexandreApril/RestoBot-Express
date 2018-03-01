@@ -29,7 +29,7 @@ try { // Verifies if a list of restaurants already exists
 try { // Verifies if a list of passwords already exists
   passwords = JSON.parse(fs.readFileSync("./functions/JSONobj/passwords.json"));
 } catch (err) { }
-console.log(restaurants);
+
 // Verifies if the restaurant already exists or not in the restaurant object by comparing the phone numbers
 // Validates if the username has not been taken
 // Validates if the Restaurant has not already been registered in the database
@@ -97,7 +97,7 @@ function CommunicateWithBot(info) {
       return { "speech": deleteReservation.answer }
     default:
       console.log("default");
-      let confirmation = reservation.AddReservation(info, reservations, tempClientObj);//reservationValidate.ValidateReservation(info, reservations, restaurants);
+      let confirmation = reservationValidate.ValidateReservation(info, reservations, restaurants);
       if (confirmation.validation === true) { return { "speech": confirmation.answer, contextOut: confirmation.contextOut } }
       else { return { "speech": confirmation.answer, contextOut: confirmation.contextOut } }
   }
