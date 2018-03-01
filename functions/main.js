@@ -29,7 +29,7 @@ try { // Verifies if a list of restaurants already exists
 try { // Verifies if a list of passwords already exists
   passwords = JSON.parse(fs.readFileSync("./functions/JSONobj/passwords.json"));
 } catch (err) { }
-
+console.log(restaurants);
 // Verifies if the restaurant already exists or not in the restaurant object by comparing the phone numbers
 // Validates if the username has not been taken
 // Validates if the Restaurant has not already been registered in the database
