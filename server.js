@@ -1,3 +1,4 @@
+const fs = require("fs");
 const main = require("./functions/main.js");
 const express = require('express');
 const app = express();
