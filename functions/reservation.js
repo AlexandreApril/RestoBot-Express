@@ -43,7 +43,6 @@ function AddReservation(info, reservations, tempObj) {
 
 function AddUserReservation(info, reservations, tempObj) {
     console.log("AddUserReservation");
-    console.log(info);
     let clientNumber = utilities.CheckPhone(info.clientNumber);
     let nbOfPeople = info.nbOfPeople === "1" ? "1 person" : info.nbOfPeople + " people"; // Not usefull, just good grammar
     let nbSeats = utilities.CheckSeats(parseInt(info.nbOfPeople)); // See the CheckSeats function
