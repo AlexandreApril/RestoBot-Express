@@ -23,6 +23,7 @@ function DisplayClientReservations(info, reservations) {
     console.log(info);
     console.log("DisplayClientReservations");
     let clientNumber = info.originalRequest.data.From.slice(1); // The clients phone number, used to search the clients reservations
+    console.log(clientNumber);
     let clientReservations = reservations[clientNumber]; // The clients reservations
     let arr = Object.keys(clientReservations).filter(dateTime => // RestoBot will only display the reservations that are still valid
         clientReservations[dateTime].isOver === false &&
