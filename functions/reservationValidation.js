@@ -63,7 +63,7 @@ function ValidateReservation(info, reservations, restaurants) {
         restaurants[restoID].City.toLowerCase() === restoCity.toLowerCase());// && // .toLowerCase is to prevent any possible errors
     // utilities.CheckHourIn(restaurants[restoID].OpenHours) > hourIn && // Checks if the resto is open when the reservation starts
     // utilities.CheckHourIn(restaurants[restoID].OpenHours) < hourOut); // Checks if the resto is closed when the reservation ends
-    if (restoFound.length > 1) {
+    if (restoFound.length < 1) {
         return {
             validation: false,
             answer: "Our database does not containt a " + restoName + " in " + restoCity + " that is open at the desired time. Maybe they don't take reservations?"
