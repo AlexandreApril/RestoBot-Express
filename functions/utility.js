@@ -54,10 +54,10 @@ function CheckSeats(nbPeople) {
 function Confirmation(choice, nbItems, bool) {
     console.log("Confirmation");
     let option = "";
-    if (bool) { option = "Number: " + x + "\n"; }
     let string = "\n";
     for (let i = 0; i < nbItems; i++) {
         let x = i + 1;
+        if (bool) { option = "Number: " + x + "\n"; }
         string = string + "\n" +
             option +
             "Name : " + choice[i].name + "\n" +
