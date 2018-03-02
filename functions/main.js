@@ -91,7 +91,7 @@ function CommunicateWithBot(info) {
       return { "speech": display.DisplayClientReservations(info, reservations) }
     case 'Reservation-Delete':
       console.log("Reservation-Delete");
-      let deleteReservation = deleteRes.DeleteClientReservations(info, reservations);
+      let deleteReservation = deleteRes.CancelClientReservations(info, reservations);
       if (deleteReservation.validation) { fs.writeFileSync("./functions/JSONobj/reservations.json", JSON.stringify(deleteReservation.obj)); }
       return { "speech": deleteReservation.answer }
     default:
