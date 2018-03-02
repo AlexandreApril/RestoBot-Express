@@ -37,6 +37,8 @@ function ValidateReservation(info, reservations, restaurants) {
         }
     }
     if (reservations[clientNumber]) { return { validation: true } }
+    console.log(reservations);
+    console.log(reservations[clientNumber]);
     console.log("hi");
     // Verifies if an object with that ID (phone number) exists, or else what's inside would cause an error
     // Verifies the client isn't trying to making two reservations at the same time, on the same day
