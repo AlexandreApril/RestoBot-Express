@@ -20,6 +20,7 @@ function DisplayRestoReservations(info, reservations) {
 // Displays a clients reservation once they ask RestoBot to display all reservations
 function DisplayClientReservations(info, reservations) {
     console.log(reservations);
+    console.log(info);
     console.log("DisplayClientReservations");
     let clientNumber = info.originalRequest.data.From.slice(1); // The clients phone number, used to search the clients reservations
     let clientReservations = reservations[clientNumber]; // The clients reservations
