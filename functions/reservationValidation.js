@@ -36,22 +36,23 @@ function ValidateReservation(info, reservations, restaurants) {
                 "please contact the restaurant directly."
         }
     }
+    if (reservations[clientNumber]) { return { validation: true } }
+    console.log("hi");
     // Verifies if an object with that ID (phone number) exists, or else what's inside would cause an error
     // Verifies the client isn't trying to making two reservations at the same time, on the same day
     // Clients cannot make reservations withing half an hour of one another since each reservation lasts one hour
-    if (reservations[clientNumber]) {
-        let avaiable = Object.keys(reservations[clientNumber]).filter(DateTime =>
-            reservations[clientNumber][DateTime].date === date &&
-            (reservations[clientNumber][DateTime].hourIn + 0.5 === hourIn ||
-                reservations[clientNumber][DateTime].hourIn === hourIn ||
-                reservations[clientNumber][DateTime].hourIn - 0.5 === hourIn));
-        if (avaiable.length >= 1) {
-            return {
-                validation: false,
-                answer: "I cannot make this reservations because it would conflict with another one of your reservations."
-            }
+    let avaiable = Object.keys(reservations[clientNumber]).filter(DateTime =>
+        reservations[clientNumber][DateTime].date === date &&
+        (reservations[clientNumber][DateTime].hourIn + 0.5 === hourIn ||
+            reservations[clientNumber][DateTime].hourIn === hourIn ||
+            reservations[clientNumber][DateTime].hourIn - 0.5 === hourIn));
+    if (avaiable.length >= 1) {
+        return {
+            validation: false,
+            answer: "I cannot make this reservations because it would conflict with another one of your reservations."
         }
     }
+
     let restoFound = Object.keys(restaurants).filter(restoID => // Verifies if there is the desired Restaurant at the requested city
         restaurants[restoID].Name.toLowerCase() === restoName.toLowerCase() && // .toLowerCase is to prevent any possible errors
         restaurants[restoID].City.toLowerCase() === restoCity.toLowerCase());// && // .toLowerCase is to prevent any possible errors
