@@ -55,7 +55,7 @@ function ValidateReservation(info, reservations, restaurants) {
             }
         }
     }
-    console.log(restaurants);
+    console.log(restaurants["450-123-1234"]);
     let restoFound = Object.keys(restaurants).filter(restoID => // Verifies if there is the desired Restaurant at the requested city
         restaurants[restoID].Name.toLowerCase() === restoName.toLowerCase() && // .toLowerCase is to prevent any possible errors
         restaurants[restoID].City.toLowerCase() === restoCity.toLowerCase());// && // .toLowerCase is to prevent any possible errors
