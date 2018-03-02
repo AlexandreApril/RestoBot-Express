@@ -20,11 +20,11 @@ function DisplayRestoReservations(info, reservations) {
 // Displays a clients reservation once they ask RestoBot to display all reservations
 function DisplayClientReservations(info, reservations) {
     console.log(reservations);
-    console.log(info);
     console.log("DisplayClientReservations");
     let clientNumber = info.originalRequest.data.From.slice(1); // The clients phone number, used to search the clients reservations
-    console.log(clientNumber);
-    let clientReservations = reservations[clientNumber]; // The clients reservations
+    let phone = utilities.CheckPhone(clientNumber);
+    console.log(phone);
+    let clientReservations = reservations[phone]; // The clients reservations
     let arr = Object.keys(clientReservations).filter(dateTime => // RestoBot will only display the reservations that are still valid
         clientReservations[dateTime].isOver === false &&
         clientReservations[dateTime].isCancelled === false);
