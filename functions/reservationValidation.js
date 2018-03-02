@@ -101,18 +101,20 @@ function ValidateReservation(info, reservations, restaurants) {
         let question = ""; // These variable must be declared here
         let request = "";
         let convoLenght = 0;
-        let options = utilities.Confirmation(choice, restoAvailable.length, true);
+        let options;
         // If there are multiple restaurants that meet the criteria of the client, displays a list to the client and the client is then invited to pick where they wish to go
         if (restoAvailable.length >= 2) {
             question = "There are more than one restaurants which meet the criteria, please enter the number of the one you wish to make a reservation at.";
             request = "reservationoption";
             convoLenght = 2;
+            options = utilities.Confirmation(choice, restoAvailable.length, true)
         }
         // If there is only one, creates the reservation
         else {
             question = "There is one restaurant that met your specifications, make a reservation?";
             request = "reservationconfirmation";
             convoLenght = 1;
+            options = utilities.Confirmation(choice, restoAvailable.length, false)
         }
         // Returns the appropriate response
         return {
