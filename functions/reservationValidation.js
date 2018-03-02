@@ -36,7 +36,7 @@ function ValidateReservation(info, reservations, restaurants) {
                 "please contact the restaurant directly."
         }
     }
-    if (reservations[clientNumber]) { return { validation: true } }
+    if (!reservations[clientNumber]) { return { validation: true } }
     console.log(reservations);
     console.log(reservations[clientNumber]);
     console.log("hi");
